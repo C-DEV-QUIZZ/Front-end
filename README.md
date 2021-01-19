@@ -12,31 +12,32 @@ Ce dernier permet de créer et gérer un projet ainsi que d'ajouter simplement d
 
 * Une fois angular installé, déplacé vous avec votre invite de commande à la racine du projet en utilisant sur windows la commande :
 
-
+```
     cd chemin/ou/vous/souhaité/aller
-    
+```
 * Une fois à la racine du projet (ici front-end) qui doit être composer des dossiers et fichiers nommé: 
 
-
-    |e2e
-    |src
-    |.browserslistrc
-    |.editorconfig
-    |.gitignore
-    |angular.json
-    |...
-
+```
+    |e2e  
+    |src  
+    |.browserslistrc  
+    |.editorconfig  
+    |.gitignore  
+    |angular.json  
+    |...  
+```
 * Faite la commande :
 
-
+```
     npm install
-
+```
 *qui permettra l'installation toutes les dépendances nécessaires au projet:*
 
 Une fois cette commande terminé il reste à lancer le serveur avec cette commande :
 
+```
     ng serve
-
+```
 
 * une fois le serveur démarré (laissé toujours l'invité ouvert) vous devriez voir :
 
