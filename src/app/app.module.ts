@@ -8,13 +8,15 @@ import { PseudoComponent } from './pseudo/pseudo.component';
 import { FormsModule } from '@angular/forms';
 import { Globals } from './global';
 import { QuestionComponent } from './question/question.component';
+import { ScoresComponent } from './scores/scores.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccueilComponent,
     PseudoComponent,
-    QuestionComponent
+    QuestionComponent,
+    ScoresComponent
   ],
   imports: [
     BrowserModule,

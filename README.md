@@ -1,4 +1,54 @@
+
+
+
+
+
 # FrontEnd
+
+
+## Comment lancer le projet ???
+
+* Install node.js sur ce site => https://nodejs.org/en/download/
+
+
+une fois node installé lancer un invite de commande et faite :
+
+* npm install -g @angular/cli
+
+
+*Ce rendre dans le projet 
+
+// install toutes les dépendances nécessaires au projet:
+* npm install
+
+// démarre un serveur en local 
+ng serve
+
+une fois terminé vous devriez voir :
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+ce rendre a l'adresse indiqué
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 

@@ -18,6 +18,7 @@ export class PseudoComponent implements OnInit {
     isValid() {
         if (this.globals.isEmptyOrSpaces(this.pseudo)) {
             this.globals.errorAction("inputPseudo");
+            return;
         }
 
         this.router.navigate(['/question']);
