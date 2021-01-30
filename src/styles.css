@@ -3,6 +3,8 @@
     --background-color : #252C4A;
     --color-button:#E4F33F;
     --text-color:#F7F9F9;
+    --style-font:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    --font-size:3.5vmax;
 }
 
 * {

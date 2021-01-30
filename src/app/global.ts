@@ -68,4 +68,9 @@ export class Globals {
             return true;
         return str === null || str.match(/^ *$/) !== null;
     }
+
+    public getRandomPrenom(){
+        return "Faux prenom";
+    }
+
 }

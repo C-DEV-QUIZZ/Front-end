@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { Globals } from './global';
 import { QuestionComponent } from './question/question.component';
 import { ScoresComponent } from './scores/scores.component';
+import { SalleComponent } from './salle/salle.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ScoresComponent } from './scores/scores.component';
     AccueilComponent,
     PseudoComponent,
     QuestionComponent,
-    ScoresComponent
+    ScoresComponent,
+    SalleComponent
   ],
   imports: [
     BrowserModule,

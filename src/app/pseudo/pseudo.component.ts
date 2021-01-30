@@ -21,7 +21,7 @@ export class PseudoComponent implements OnInit {
             return;
         }
 
-        this.router.navigate(['/question']);
-
+        //this.router.navigate(['/salle'],{ queryParams:{pseudo: this.pseudo}});
+        this.router.navigateByUrl('/salle', { state: { pseudo: this.pseudo } });
     }
 }

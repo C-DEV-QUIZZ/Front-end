@@ -1,0 +1,18 @@
+<h2>{{ use }} ATTENTE DES JOUEURS<span class="ani-pass">...</span></h2>
+
+<p >{{ use }}</p>
+
+<div class="conteneur lg-col-8">
+    <div class="cards" *ngFor="let user of utilisateur">
+        <div class="rowIcoPlayer">
+            <span class="mif-user fg-black icoPlayer"></span>
+        </div>
+        <div class="rowPseudoPlayer">
+            <span class="pseudoPlayer">{{user.nom}}</span>
+        </div>
+        <div class="rowStatutPlayer">
+            <span class="statutPlayer mif-checkmark fg-green" *ngIf="user.statut"></span>
+            <span class="statutPlayer mif-cross fg-red" *ngIf="!user.statut"></span>
+        </div>
+    </div>
+</div>
