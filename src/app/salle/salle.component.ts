@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { Globals } from '../global';
 @Component({
   selector: 'app-salle',
@@ -11,17 +10,37 @@ export class SalleComponent implements OnInit {
 
 
   constructor(private router: Router,private globals: Globals) {
-    this.router.events
-    .pipe(filter(e => e instanceof NavigationStart))
-    .subscribe((e: NavigationStart) => {
-      const navigation  = this.router.getCurrentNavigation();
-      this.use = navigation.extras.state ? navigation.extras.state.pseudo : 0;
+    /* == ALGORTHIME FRONT END DE LA SALLE D ATTENTE == */
+      // A l'arrivée sur cette route une requete ajax interroge le server.
+      // Le serveur attribue et renvoi un lobby à l'utilisateur (lobby à un id unique).
+      // Le serveur renvoi alors le nom des joueurs déja dans la salle d'attente du lobby. 
+      // Le serveur renvoi le temps qu'il reste avant le début de session.
 
-    });
+      // A la réponse du serveur on incremente la liste des players (this.utilisateurs).
+      // On déclence le timeur qui affiche au client le temps restant avant le début de session
+
+      /* Passage a revoir :*/
+      // Chaque X seconde(s) on interroge le serveur pour obtenir les players co/déco.
+      // Une fois le timeur finit (drapeau coté serveur) => 
+      // le serveur transmets une clé unique qui permet au client de passé à l'écran des questions 
+      // le serveur renvoi en meme temps la premiere question.
 
   }
+
+  use :string = "";
+  players :any= []
+
   ngOnInit(): void {
-    console.log(sessionStorage.getItem("pseudo"));
+    this.RecupUserName();
+  }
+
+
+  /**
+   * Recupere l'user soit grace à la page pseudo
+   * soit grace au session storage (si F5)
+   * soit attribue un fake name.
+   */
+  RecupUserName(){
     if(history.state.pseudo){
       this.use=history.state.pseudo;
       sessionStorage.setItem("pseudo",this.use);
@@ -34,23 +53,17 @@ export class SalleComponent implements OnInit {
       this.use= prenom;
       sessionStorage.setItem("pseudo",this.use);
     }
+    this.players.push(
+      {nom:this.use,statut:true}
+    )
   }
-  use :string = "";
-  utilisateur :any= []
-  // ngOnInit(): void {
-  //   console.log(this.use);
-  //   this.utilisateur.push(
-  //     {nom:"bill",statut:true}
-  //     )
-  //   this.utilisateur.push(
-  //     {nom:"roger",statut:false}
-  //     )
-  //   this.utilisateur.push(
-  //     {nom:"Lea",statut:true}
-  //     )
-  //   this.utilisateur.push(
-  //     {nom:"Marco",statut:false}
-  //     )
-  // }
 
+  /**
+   * Methode de test pour ajout dynamic utilisateur
+   */
+  public addUser(){
+    let actif = (Math.floor(Math.random() * 2) + 1)%2 == 0 ? true:false;
+    this.players.push(
+      {nom:this.globals.getRandomPrenom(),statut:actif})
+  }
 }

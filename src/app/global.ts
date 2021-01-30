@@ -7,17 +7,6 @@ export class Globals {
 
     constructor(private router: Router){}
 
-    public static COOKIE_NAME:string = "Zz3Qu177";
-    public static COMPTE_STRING:string = "compte";
-    public static CONNEXION_STRING:string = "connexion";
-
-
-
-
-    // todo si reviens sur le site 
-    //Compte: string = Cookie.get(COOKIE_NAME) ? `Gestion de compte`:"Compte";
-
-
     public validateEmail(email) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
@@ -51,6 +40,7 @@ export class Globals {
         },time);
 
     }
+
     // secoue et affiche en rouge en cas d'erreur
     public errorAction(element,time=1500)
     {
@@ -62,7 +52,6 @@ export class Globals {
         },time);
     }
 
-
     public if_Undefind_EmptyOrSpaces(str){
         if(str==undefined)
             return true;
@@ -70,7 +59,14 @@ export class Globals {
     }
 
     public getRandomPrenom(){
-        return "Faux prenom";
+        length = Math.floor(Math.random() * 5) +5; 
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
     }
 
 }
