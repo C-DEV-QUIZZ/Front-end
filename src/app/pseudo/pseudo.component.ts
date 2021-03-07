@@ -12,7 +12,7 @@ export class PseudoComponent implements OnInit {
 
     pseudo;
     mode= {name :'', value:''};
-    retour ;
+    Questions ;
     dataEnvoye;
     constructor( private globals: Globals,private router: Router,private ajaxService: AjaxService) { 
     }
@@ -42,9 +42,9 @@ export class PseudoComponent implements OnInit {
         
         this.ajaxService.postEnvoiMode(data).subscribe(
             (response)=>{
-                console.log(response);
-                let reponse=  this.globals.ajaxResultToJson(response);
-                this.retour = reponse.retour;
+                let jsonResult=  this.globals.ajaxResultToJson(response);
+                this.Questions = jsonResult;
+                console.log(this.Questions);
             },
 
             (error)=>{
