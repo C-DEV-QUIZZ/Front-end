@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AjaxService } from '../ajax.service';
 import { Allmode, Globals } from '../global';
 
 @Component({
@@ -10,17 +11,19 @@ import { Allmode, Globals } from '../global';
 export class PseudoComponent implements OnInit {
 
     pseudo;
-    mode;
+    mode= {name :'', value:''};
 
-    constructor(private globals: Globals,private router: Router) { 
+    constructor( private globals: Globals,private router: Router,private ajaxService: AjaxService) { 
     }
 
 
     ngOnInit(): void {
         
         // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
-        if(history.state.mode)
-            this.mode = Allmode[history.state.mode];
+        if(history.state.mode){
+            this.mode.name = Allmode[history.state.mode];
+            this.mode.value = Allmode[history.state.mode];            
+        }
         else
             this.router.navigate(['/'])
     }
@@ -31,12 +34,19 @@ export class PseudoComponent implements OnInit {
             return;
         }
 
-        // selon le mode on envoi vers la salle d'attente
-        this.router.navigate(['/question']); // route actuel pour le mode multi
+        // appel ajax au serveur on lui envoi le mode :
+        let data ={'mode': this.mode.value}; 
+        console.log(data);
+        
+        this.ajaxService.postEnvoiMode(data).subscribe(
+            (response)=>{
 
+            },
 
-        // ou vers les questions off-line
+            (error)=>{
 
+            }
+        );
 
     }
 }
