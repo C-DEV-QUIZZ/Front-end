@@ -4,6 +4,8 @@
     <input type="text" id="inputPseudo" [(ngModel)]="pseudo" placeholder="The destructor" >
     <button (click)="isValid()" class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">VALIDER</button>
 </div>
+<p class="fg-white">{{dataEnvoye}}</p>
+<p class="fg-white">{{retour}}</p>
 
 <a routerLink="/" class="button btnHome rounded large" data-role="ripple" data-ripple-color="#252C4A"><span class="mif-home mif-3x"></span></a>
 <small id="mode">{{mode.name}}</small>

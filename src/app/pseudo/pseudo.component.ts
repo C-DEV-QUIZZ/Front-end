@@ -12,7 +12,8 @@ export class PseudoComponent implements OnInit {
 
     pseudo;
     mode= {name :'', value:''};
-
+    retour ;
+    dataEnvoye;
     constructor( private globals: Globals,private router: Router,private ajaxService: AjaxService) { 
     }
 
@@ -22,7 +23,7 @@ export class PseudoComponent implements OnInit {
         // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
         if(history.state.mode){
             this.mode.name = Allmode[history.state.mode];
-            this.mode.value = Allmode[history.state.mode];            
+            this.mode.value = history.state.mode;            
         }
         else
             this.router.navigate(['/'])
@@ -36,11 +37,14 @@ export class PseudoComponent implements OnInit {
 
         // appel ajax au serveur on lui envoi le mode :
         let data ={'mode': this.mode.value}; 
-        console.log(data);
+
+        this.dataEnvoye = `mode : ${this.mode.value}`;
         
         this.ajaxService.postEnvoiMode(data).subscribe(
             (response)=>{
-
+                console.log(response);
+                let reponse=  this.globals.ajaxResultToJson(response);
+                this.retour = reponse.retour;
             },
 
             (error)=>{

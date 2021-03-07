@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { Globals } from './global';
 import { QuestionComponent } from './question/question.component';
 import { ScoresComponent } from './scores/scores.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ScoresComponent } from './scores/scores.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [Globals],
   bootstrap: [AppComponent]

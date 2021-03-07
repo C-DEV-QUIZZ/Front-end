@@ -69,6 +69,11 @@ export class Globals {
         return str === null || str.match(/^ *$/) !== null;
     }
 
+    public ajaxResultToJson(response:Object){
+        let responseString = JSON.stringify(response);
+        return JSON.parse(responseString); 
+    }
+
 
 }
 
