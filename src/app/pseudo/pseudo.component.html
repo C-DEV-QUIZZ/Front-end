@@ -1,8 +1,9 @@
-<a routerLink="/" class="button btnHome rounded large" data-role="ripple" data-ripple-color="#252C4A"><span class="mif-home mif-3x"></span></a>
 
 <div class="container md-col-8">
     <h1 class="titre">ENTRER VOTRE PSEUDO</h1>
-
     <input type="text" id="inputPseudo" [(ngModel)]="pseudo" placeholder="The destructor" >
     <button (click)="isValid()" class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">VALIDER</button>
 </div>
+
+<a routerLink="/" class="button btnHome rounded large" data-role="ripple" data-ripple-color="#252C4A"><span class="mif-home mif-3x"></span></a>
+<small id="mode">{{mode}}</small>

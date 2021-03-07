@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Globals } from '../global';
+import { Allmode, Globals } from '../global';
 
 @Component({
     selector: 'app-pseudo',
@@ -10,9 +10,19 @@ import { Globals } from '../global';
 export class PseudoComponent implements OnInit {
 
     pseudo;
-    constructor(private globals: Globals,private router: Router) { }
+    mode;
+
+    constructor(private globals: Globals,private router: Router) { 
+    }
+
 
     ngOnInit(): void {
+        
+        // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
+        if(history.state.mode)
+            this.mode = Allmode[history.state.mode];
+        else
+            this.router.navigate(['/'])
     }
 
     isValid() {
@@ -21,7 +31,12 @@ export class PseudoComponent implements OnInit {
             return;
         }
 
-        this.router.navigate(['/question']);
+        // selon le mode on envoi vers la salle d'attente
+        this.router.navigate(['/question']); // route actuel pour le mode multi
+
+
+        // ou vers les questions off-line
+
 
     }
 }

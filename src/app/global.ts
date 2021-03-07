@@ -68,4 +68,11 @@ export class Globals {
             return true;
         return str === null || str.match(/^ *$/) !== null;
     }
+
+
+}
+
+export enum Allmode{
+    solo =1,
+    multi=2 
 }
