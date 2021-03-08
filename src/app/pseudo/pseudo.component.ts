@@ -11,9 +11,8 @@ import { Allmode, Globals } from '../global';
 export class PseudoComponent implements OnInit {
 
     pseudo;
-    mode= {name :'', value:''};
-    Questions ;
-    dataEnvoye;
+    mode : any = {};
+
     constructor( private globals: Globals,private router: Router,private ajaxService: AjaxService) { 
     }
 
@@ -38,17 +37,15 @@ export class PseudoComponent implements OnInit {
         // appel ajax au serveur on lui envoi le mode :
         let data ={'mode': this.mode.value}; 
 
-        this.dataEnvoye = `mode : ${this.mode.value}`;
-        
         this.ajaxService.postEnvoiMode(data).subscribe(
             (response)=>{
                 let jsonResult=  this.globals.ajaxResultToJson(response);
-                this.Questions = jsonResult;
-                console.log(this.Questions);
+                console.log(jsonResult.chemin);
+                this.router.navigateByUrl('/'+jsonResult.chemin, { state: { mode:  this.mode.value } });
+
             },
-
             (error)=>{
-
+                console.log(error);
             }
         );
 

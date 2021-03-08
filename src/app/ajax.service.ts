@@ -18,9 +18,13 @@ export class AjaxService{
     }
 
     private urlModeController = this.adresse+"/controller/receptionModeController.php/"
+    private urlConnexionModeSoloController = this.adresse+"/controller/modeSoloController.php/"
 
     postEnvoiMode(data){
         return this.http.post(this.urlModeController,data);
+    }
+    postConnexionModeSolo(data){
+        return this.http.post(this.urlConnexionModeSoloController,data);
     }
 
 }

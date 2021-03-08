@@ -10,6 +10,7 @@ import { Globals } from './global';
 import { QuestionComponent } from './question/question.component';
 import { ScoresComponent } from './scores/scores.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DemarrageSoloComponent } from './demarrage-solo/demarrage-solo.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     AccueilComponent,
     PseudoComponent,
     QuestionComponent,
-    ScoresComponent
+    ScoresComponent,
+    DemarrageSoloComponent
   ],
   imports: [
     BrowserModule,
