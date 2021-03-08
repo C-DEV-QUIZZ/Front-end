@@ -4,11 +4,13 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { DemarrageSoloComponent } from './demarrage-solo/demarrage-solo.component';
 import { PseudoComponent } from './pseudo/pseudo.component';
 import { QuestionComponent } from './question/question.component';
+import { SalleAttenteComponent } from './salle-attente/salle-attente.component';
 import { ScoresComponent } from './scores/scores.component';
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
   { path: 'pseudo', component: PseudoComponent },
+  { path: 'salle-attente', component: SalleAttenteComponent },
   { path: 'question', component: QuestionComponent },
   { path: 'score', component: ScoresComponent },
   { path: 'demarrage-solo', component: DemarrageSoloComponent },
