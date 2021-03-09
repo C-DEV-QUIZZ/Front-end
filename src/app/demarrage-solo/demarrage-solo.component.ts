@@ -11,10 +11,11 @@ import { Allmode, Globals } from '../global';
 export class DemarrageSoloComponent implements OnInit {
 
     mode :any ={};
-    Questions : any = [];
-    constructor(private ajaxService: AjaxService, private globals: Globals, private router: Router) { }
+    listQuestions = [];
+    listReponse = [];
 
-    ngOnInit(): void {
+    messageInfo="Toutes actualisations de cette page entraine la perte de la progression !"
+    constructor(private ajaxService: AjaxService, private globals: Globals, private router: Router) {
 
         if (history.state.mode) {
             this.mode.name = Allmode[history.state.mode];
@@ -26,15 +27,60 @@ export class DemarrageSoloComponent implements OnInit {
         let data = { 'mode': this.mode.value };
         this.ajaxService.postConnexionModeSolo(data).subscribe(
 
-            (response) => {
+            (response) =>{
                 let jsonResult = this.globals.ajaxResultToJson(response);
-                this.Questions = jsonResult;
-                console.log(this.Questions);
+                this.listQuestions = jsonResult;
+                console.log(this.listQuestions);
             },
             (error) => {
                 console.log(error);
             }
+        );
 
+
+    }
+
+    ngOnInit(): void {}
+
+
+    // lorsque l'on clique sur une réponse :
+    saveReponse(questionId,reponseId){
+        console.log(questionId);
+        console.log(reponseId);
+
+
+        this.listQuestions.shift();
+        this.listReponse.push({ questionId : questionId , reponseUtilisateurId : reponseId});
+        if( this.listQuestions.length==0)
+        {
+            this.messageInfo = "no more question";
+            console.log("fini : ")
+            console.log(this.listReponse)
+
+            this.envoiReponse();
+        }
+
+
+
+    }
+
+
+    envoiReponse(){
+
+        this.ajaxService.postCalculResultatSolo(this.listReponse).subscribe(
+            (Response)=>{
+                console.log(Response);   
+
+                // get nombre de point 
+
+                let nbPointsJoueur;
+
+                // des qu'il aura le nombre point du joueurs on bifurques vers la page résultat avec le nombre de point :
+                this.router.navigateByUrl('/score', { state: { points:  nbPointsJoueur } });
+            },
+            (error)=>{
+                console.log(error);   
+            }
         );
     }
 

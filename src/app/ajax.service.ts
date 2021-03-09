@@ -17,14 +17,18 @@ export class AjaxService{
         this.http=http;
     }
 
-    private urlModeController = this.adresse+"/controller/receptionModeController.php/"
-    private urlConnexionModeSoloController = this.adresse+"/controller/modeSoloController.php/"
+    private urlModeController = this.adresse+"controller/receptionModeController.php/"
+    private urlConnexionModeSoloController = this.adresse+"controller/modeSoloController.php/"
+    private urlCalculResultController = this.adresse+"controller/calculResultatSoloController.php/"
 
     postEnvoiMode(data){
         return this.http.post(this.urlModeController,data);
     }
     postConnexionModeSolo(data){
         return this.http.post(this.urlConnexionModeSoloController,data);
+    }
+    postCalculResultatSolo(data){
+        return this.http.post(this.urlCalculResultController,data);
     }
 
 }

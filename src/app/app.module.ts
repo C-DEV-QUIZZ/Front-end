@@ -11,7 +11,6 @@ import { QuestionComponent } from './question/question.component';
 import { ScoresComponent } from './scores/scores.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DemarrageSoloComponent } from './demarrage-solo/demarrage-solo.component';
-import { SalleComponent } from './salle/salle.component';
 import { SalleAttenteComponent } from './salle-attente/salle-attente.component';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { SalleAttenteComponent } from './salle-attente/salle-attente.component';
     QuestionComponent,
     ScoresComponent,
     DemarrageSoloComponent,
-    SalleComponent,
     SalleAttenteComponent
   ],
   imports: [
