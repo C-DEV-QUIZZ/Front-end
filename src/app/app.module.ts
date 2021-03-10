@@ -10,8 +10,9 @@ import { Globals } from './global';
 import { QuestionComponent } from './question/question.component';
 import { ScoresComponent } from './scores/scores.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DemarrageSoloComponent } from './demarrage-solo/demarrage-solo.component';
 import { SalleAttenteComponent } from './salle-attente/salle-attente.component';
+import { ScoreSoloComponent } from './score-solo/score-solo.component';
+import { ModeSoloComponent } from './mode-solo/mode-solo.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +21,9 @@ import { SalleAttenteComponent } from './salle-attente/salle-attente.component';
     PseudoComponent,
     QuestionComponent,
     ScoresComponent,
-    DemarrageSoloComponent,
-    SalleAttenteComponent
+    SalleAttenteComponent,
+    ScoreSoloComponent,
+    ModeSoloComponent
   ],
   imports: [
     BrowserModule,

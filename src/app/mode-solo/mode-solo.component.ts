@@ -4,22 +4,24 @@ import { AjaxService } from '../ajax.service';
 import { Allmode, Globals } from '../global';
 
 @Component({
-    selector: 'app-demarrage-solo',
-    templateUrl: './demarrage-solo.component.html',
-    styleUrls: ['./demarrage-solo.component.css']
+    selector: 'app-mode-solo',
+    templateUrl: './mode-solo.component.html',
+    styleUrls: ['./mode-solo.component.css']
 })
-export class DemarrageSoloComponent implements OnInit {
+export class ModeSoloComponent implements OnInit {
 
-    mode :any ={};
+    mode: any = {};
     listQuestions = [];
     listReponse = [];
+    messageInfo = "Toutes actualisations de cette page entraine la perte de la progression !";
+    pseudo;
 
-    messageInfo="Toutes actualisations de cette page entraine la perte de la progression !"
     constructor(private ajaxService: AjaxService, private globals: Globals, private router: Router) {
 
         if (history.state.mode) {
             this.mode.name = Allmode[history.state.mode];
             this.mode.value = history.state.mode;
+            this.pseudo = history.state.pseudo;
         }
         else
             this.router.navigate(['/'])
@@ -27,7 +29,7 @@ export class DemarrageSoloComponent implements OnInit {
         let data = { 'mode': this.mode.value };
         this.ajaxService.postConnexionModeSolo(data).subscribe(
 
-            (response) =>{
+            (response) => {
                 let jsonResult = this.globals.ajaxResultToJson(response);
                 this.listQuestions = jsonResult;
                 console.log(this.listQuestions);
@@ -36,50 +38,42 @@ export class DemarrageSoloComponent implements OnInit {
                 console.log(error);
             }
         );
-
-
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
 
     // lorsque l'on clique sur une réponse :
-    saveReponse(questionId,reponseId){
+    saveReponse(questionId, reponseId) {
         console.log(questionId);
         console.log(reponseId);
 
 
         this.listQuestions.shift();
-        this.listReponse.push({ questionId : questionId , reponseUtilisateurId : reponseId});
-        if( this.listQuestions.length==0)
-        {
+        this.listReponse.push({ questionId: questionId, reponseUtilisateurId: reponseId });
+        if (this.listQuestions.length == 0) {
             this.messageInfo = "no more question";
             console.log("fini : ")
             console.log(this.listReponse)
 
             this.envoiReponse();
         }
-
-
-
     }
 
-
-    envoiReponse(){
+    envoiReponse() {
 
         this.ajaxService.postCalculResultatSolo(this.listReponse).subscribe(
-            (Response)=>{
-                console.log(Response);   
-
+            (Response) => {
+                console.log(Response);
                 // get nombre de point 
-
-                let nbPointsJoueur;
+                let jsonResult = this.globals.ajaxResultToJson(Response);
+                let nbPointsJoueur = jsonResult.points;
 
                 // des qu'il aura le nombre point du joueurs on bifurques vers la page résultat avec le nombre de point :
-                this.router.navigateByUrl('/score', { state: { points:  nbPointsJoueur } });
+                this.router.navigateByUrl('/score-solo', { state: { points: nbPointsJoueur, pseudo: this.pseudo } });
             },
-            (error)=>{
-                console.log(error);   
+            (error) => {
+                console.log(error);
             }
         );
     }

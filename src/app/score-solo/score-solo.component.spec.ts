@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DemarrageSoloComponent } from './demarrage-solo.component';
+import { ScoreSoloComponent } from './score-solo.component';
 
-describe('DemarrageSoloComponent', () => {
-  let component: DemarrageSoloComponent;
-  let fixture: ComponentFixture<DemarrageSoloComponent>;
+describe('ScoreSoloComponent', () => {
+  let component: ScoreSoloComponent;
+  let fixture: ComponentFixture<ScoreSoloComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DemarrageSoloComponent ]
+      declarations: [ ScoreSoloComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DemarrageSoloComponent);
+    fixture = TestBed.createComponent(ScoreSoloComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

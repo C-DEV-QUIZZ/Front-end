@@ -22,7 +22,7 @@ export class PseudoComponent implements OnInit {
         // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
         if(history.state.mode){
             this.mode.name = Allmode[history.state.mode];
-            this.mode.value = history.state.mode;            
+            this.mode.value = history.state.mode;           
         }
         else
             this.router.navigate(['/'])
@@ -41,7 +41,7 @@ export class PseudoComponent implements OnInit {
             (response)=>{
                 let jsonResult=  this.globals.ajaxResultToJson(response);
                 console.log(jsonResult.chemin);
-                this.router.navigateByUrl('/'+jsonResult.chemin, { state: { mode:  this.mode.value } });
+                this.router.navigateByUrl('/'+jsonResult.chemin, { state: { mode:  this.mode.value, pseudo : this.pseudo } });
 
             },
             (error)=>{
