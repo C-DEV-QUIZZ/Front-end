@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 declare let toastr : any;
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class Globals {
 
     constructor(private router: Router){}

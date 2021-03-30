@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 })
 export class ScoreSoloComponent implements OnInit {
 
-    pseudo;
-    points;
+    pseudo : string = "";
+    points : string = "";
     constructor(private router :Router) {
         if(history.state.points){
             this.points = history.state.points;
@@ -17,9 +17,6 @@ export class ScoreSoloComponent implements OnInit {
         }
         else
             this.router.navigate(['/'])
-        
-
-
     }
 
     ngOnInit(): void {

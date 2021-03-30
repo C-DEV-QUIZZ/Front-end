@@ -9,7 +9,7 @@ import { Globals } from '../global';
 })
 export class QuestionComponent implements OnInit {
 
-  reponseChoix;
+  reponseChoix ="";
   constructor(private globals: Globals,private router: Router) { }
 
   ngOnInit(): void {

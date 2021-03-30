@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { SalleAttenteComponent } from './salle-attente.component';
 
@@ -8,6 +9,7 @@ describe('SalleAttenteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [ SalleAttenteComponent ]
     })
     .compileComponents();

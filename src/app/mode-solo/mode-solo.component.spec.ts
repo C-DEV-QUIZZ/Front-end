@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import { ModeSoloComponent } from './mode-solo.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ModeSoloComponent', () => {
   let component: ModeSoloComponent;
@@ -8,6 +9,7 @@ describe('ModeSoloComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[RouterTestingModule,HttpClientTestingModule ],
       declarations: [ ModeSoloComponent ]
     })
     .compileComponents();
