@@ -1,0 +1,12 @@
+<small *ngIf="listQuestions[0]">nb point: {{listQuestions[0].points}} </small>
+
+<div class="container" *ngIf="listQuestions[0]">
+    <h6 class="fg-white titre" >{{ listQuestions[0].texte }}?  </h6>
+
+    <div id="blocReponse">
+        <button class="myBtn" *ngFor="let reponse of listQuestions[0].reponses" (click)="saveReponse(listQuestions[0].id,reponse.id)" >{{reponse.texte}}</button>
+    </div>
+</div>
+
+
+<p id="messageInfo">{{ messageInfo }}</p>

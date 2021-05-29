@@ -1,6 +1,6 @@
 :host {
     display: flex;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     margin: 0;
     flex-direction: column;
@@ -10,12 +10,12 @@
 }
 
 .container{
-    height: 50%;
+    height: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    min-height: 300px;
+    min-height: 400px;
 }
 .titre{
     font-size: 4.5vmax;
@@ -51,4 +51,12 @@
 
 input:focus{
     box-shadow: none;
+}
+
+#messageInfo{
+    color: rgb(199, 169, 169,0.5);
+    position: absolute; 
+    bottom: 5px ; 
+    right: 0;
+    margin-right: 20px;
 }

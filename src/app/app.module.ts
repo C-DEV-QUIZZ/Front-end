@@ -9,6 +9,10 @@ import { FormsModule } from '@angular/forms';
 import { Globals } from './global';
 import { QuestionComponent } from './question/question.component';
 import { ScoresComponent } from './scores/scores.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SalleAttenteComponent } from './salle-attente/salle-attente.component';
+import { ScoreSoloComponent } from './score-solo/score-solo.component';
+import { ModeSoloComponent } from './mode-solo/mode-solo.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +20,16 @@ import { ScoresComponent } from './scores/scores.component';
     AccueilComponent,
     PseudoComponent,
     QuestionComponent,
-    ScoresComponent
+    ScoresComponent,
+    SalleAttenteComponent,
+    ScoreSoloComponent,
+    ModeSoloComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [Globals],
   bootstrap: [AppComponent]

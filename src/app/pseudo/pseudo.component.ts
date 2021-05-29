@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Globals } from '../global';
+import { AjaxService } from '../ajax.service';
+import { Allmode, Globals } from '../global';
 
 @Component({
     selector: 'app-pseudo',
@@ -10,9 +11,21 @@ import { Globals } from '../global';
 export class PseudoComponent implements OnInit {
 
     pseudo;
-    constructor(private globals: Globals,private router: Router) { }
+    mode : any = {};
+
+    constructor( private globals: Globals,private router: Router,private ajaxService: AjaxService) { 
+    }
+
 
     ngOnInit(): void {
+        
+        // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
+        if(history.state.mode){
+            this.mode.name = Allmode[history.state.mode];
+            this.mode.value = history.state.mode;           
+        }
+        else
+            this.router.navigate(['/'])
     }
 
     isValid() {
@@ -21,7 +34,20 @@ export class PseudoComponent implements OnInit {
             return;
         }
 
-        this.router.navigate(['/question']);
+        // appel ajax au serveur on lui envoi le mode :
+        let data ={'mode': this.mode.value}; 
+
+        this.ajaxService.postEnvoiMode(data).subscribe(
+            (response)=>{
+                let jsonResult=  this.globals.ajaxResultToJson(response);
+                console.log(jsonResult.chemin);
+                this.router.navigateByUrl('/'+jsonResult.chemin, { state: { mode:  this.mode.value, pseudo : this.pseudo } });
+
+            },
+            (error)=>{
+                console.log(error);
+            }
+        );
 
     }
 }
