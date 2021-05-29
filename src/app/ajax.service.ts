@@ -17,9 +17,9 @@ export class AjaxService{
         this.http=http;
     }
 
-    private urlModeController = this.adresse+"controller/receptionModeController"
-    private urlConnexionModeSoloController = this.adresse+"controller/modeSoloController.php/"
-    private urlCalculResultController = this.adresse+"controller/calculResultatSoloController.php/"
+    private urlModeController = this.adresse+"controller/receptionMode"
+    private urlConnexionModeSoloController = this.adresse+"controller/modeSolo/start"
+    private urlCalculResultController = this.adresse+"controller/modeSolo/calculResult"
 
     postEnvoiMode(data){
         console.log(data);
