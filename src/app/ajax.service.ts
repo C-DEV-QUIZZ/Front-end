@@ -17,11 +17,12 @@ export class AjaxService{
         this.http=http;
     }
 
-    private urlModeController = this.adresse+"controller/receptionModeController.php/"
+    private urlModeController = this.adresse+"controller/receptionModeController"
     private urlConnexionModeSoloController = this.adresse+"controller/modeSoloController.php/"
     private urlCalculResultController = this.adresse+"controller/calculResultatSoloController.php/"
 
     postEnvoiMode(data){
+        console.log(data);
         return this.http.post(this.urlModeController,data);
     }
     postConnexionModeSolo(data){
