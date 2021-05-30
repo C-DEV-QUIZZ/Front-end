@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontEnd';
+
+  ngOnInit(): void {}
+  public constructor(private titleService: Title) { 
+      titleService.setTitle(environment.NomSite);
+  }
+  
 }
