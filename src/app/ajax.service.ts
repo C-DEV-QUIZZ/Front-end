@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 
 export class AjaxService{
 
-    private adresse= environment.adresse;
+    private adresse= environment.adresseBackEnd;
 
     private http:HttpClient;
     
@@ -17,11 +17,12 @@ export class AjaxService{
         this.http=http;
     }
 
-    private urlModeController = this.adresse+"controller/receptionModeController.php/"
-    private urlConnexionModeSoloController = this.adresse+"controller/modeSoloController.php/"
-    private urlCalculResultController = this.adresse+"controller/calculResultatSoloController.php/"
+    private urlModeController = this.adresse+"controller/receptionMode"
+    private urlConnexionModeSoloController = this.adresse+"controller/modeSolo/start"
+    private urlCalculResultController = this.adresse+"controller/modeSolo/calculResult"
 
     postEnvoiMode(data){
+        console.log(data);
         return this.http.post(this.urlModeController,data);
     }
     postConnexionModeSolo(data){
