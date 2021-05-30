@@ -14,5 +14,5 @@ export class AppComponent {
   public constructor(private titleService: Title) { 
       titleService.setTitle(environment.NomSite);
   }
-  
+    
 }

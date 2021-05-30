@@ -3,6 +3,39 @@
     <h1 class="titre">PROJET MESI QUIZZ</h1>
     <button (click)="navigateToPseudo(Allmode.solo)"class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">JOUER {{ Allmode[Allmode.solo] }} </button>
     <button (click)="navigateToPseudo(Allmode.multi)" disabled class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">JOUER {{ Allmode[Allmode.multi] }}</button>
-    <button class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">OPTIONS</button>
+    <button onclick="Metro.dialog.open('#demoDialog1')" class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">OPTIONS</button>
 </div>
 
+
+
+
+
+
+<span id="version">{{ version }}</span>
+
+
+<div class="dialog info" data-role="dialog" id="demoDialog1">
+    <div class="dialog-title">INFORMATIONS SUR L'ENVIRONNEMENT</div>
+    <div class="dialog-content">
+        <div class="row d-flex flex-justify-between" >
+            <label for="">Type d'environnemnt: </label>
+            <b>{{ typeEnvironnement }}</b>
+        </div>
+        <div class="row d-flex flex-justify-between" >
+            <label for="">Adresse du back: </label>
+            <b>{{ AdresseBackEnd }}</b>
+        </div>
+        <div class="row d-flex flex-justify-between" >
+            <label for="">Adresse locale: </label>
+            <b>{{ AdresseLocal }}</b>
+        </div>
+        <div class="row d-flex flex-justify-between" >
+            <label for="">version : </label>
+            <b>{{ version }}</b>
+        </div>
+    </div>
+    <div class="dialog-actions d-flex" style="justify-content: space-between;">
+        <button class="button alert js-dialog-close">X</button>
+        <button disabled class="button primary js-dialog-close">Télécharger<span class="mif-windows"></span></button>
+    </div>
+</div>
