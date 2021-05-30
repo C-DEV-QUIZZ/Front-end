@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { Allmode } from '../global';
 
 @Component({
@@ -12,10 +13,16 @@ export class AccueilComponent implements OnInit {
         
     }
 
+    version :string= environment.appVersion;
+    typeEnvironnement :string= environment.typeEnvironnement;
+    AdresseBackEnd :string= environment.adresseBackEnd;
+    AdresseLocal :string= environment.adresseFrontEnd;
+
     colorBackground;
 
     Allmode = Allmode;
     socket;
+
     ngOnInit(): void {
         this.colorBackground = getComputedStyle(
             document.documentElement

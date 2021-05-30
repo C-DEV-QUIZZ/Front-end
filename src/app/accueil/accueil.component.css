@@ -34,3 +34,9 @@
     align-items: center;
     text-transform: uppercase;
 }
+#version{
+    color: #3C77AA;
+    position: absolute;
+    right: 10px ;
+    bottom: 10px;
+}
