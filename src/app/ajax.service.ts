@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 
 export class AjaxService{
 
-    private adresse= environment.adresse;
+    private adresse= environment.adresseBackEnd;
 
     private http:HttpClient;
     

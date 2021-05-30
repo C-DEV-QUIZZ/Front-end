@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Allmode } from '../global';
-import { io } from "socket.io-client";
 
 @Component({
     selector: 'app-accueil',
@@ -26,11 +25,7 @@ export class AccueilComponent implements OnInit {
 
     navigateToPseudo(modeChoisit){
         if (modeChoisit == Allmode.multi)
-        {
-            this.socket = io('http://localhost:3000',{path:"/test"});
             return;
-        }
-
         //permet d'envoyer le mode (enum dans global) choisit à la page pseudo
         this.router.navigateByUrl('/pseudo', { state: { mode: modeChoisit } });
     }
