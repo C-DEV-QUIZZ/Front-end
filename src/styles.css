@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 :root{
-    --background-color : #252C4A;
-    --color-button:#E4F33F;
+    --background-color : linear-gradient(45deg, black, #252C4A);
+    --color-button:peachpuff;
     --text-color:#F7F9F9;
     --style-font:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     --font-size:3.5vmax;
@@ -15,7 +15,7 @@
 html,body{
     height: 100%;
     width: 100%;
-    background: var(--background-color);
+    background: var(--background-color) ;
 }
 .myBtn{
     font-weight: bold;
