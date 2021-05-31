@@ -29,3 +29,8 @@ html,body{
     align-items: center;
     text-transform: uppercase;
 }
+#spinner{
+    position: absolute;
+    left: 10px ;
+    top : 10px;
+}

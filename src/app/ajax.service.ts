@@ -17,9 +17,10 @@ export class AjaxService{
         this.http=http;
     }
 
-    private urlModeController = this.adresse+"controller/receptionMode"
-    private urlConnexionModeSoloController = this.adresse+"controller/modeSolo/start"
-    private urlCalculResultController = this.adresse+"controller/modeSolo/calculResult"
+    private urlModeController = this.adresse+"controller/receptionMode";
+    private urlConnexionModeSoloController = this.adresse+"controller/modeSolo/start";
+    private urlCalculResultController = this.adresse+"controller/modeSolo/calculResult";
+    private urlPingBack = this.adresse+"ping";
 
     postEnvoiMode(data){
         console.log(data);
@@ -30,6 +31,10 @@ export class AjaxService{
     }
     postCalculResultatSolo(data){
         return this.http.post(this.urlCalculResultController,data);
+    }
+
+    getPing(){
+        return this.http.get(this.urlPingBack);
     }
 
 }
