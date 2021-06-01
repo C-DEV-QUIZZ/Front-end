@@ -1,15 +1,10 @@
 
 <div class="container md-col-8">
-    <h1 class="titre">PROJET MESI QUIZZ</h1>
-    <button (click)="navigateToPseudo(Allmode.solo)"class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">JOUER {{ Allmode[Allmode.solo] }} </button>
-    <button (click)="navigateToPseudo(Allmode.multi)" disabled class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">JOUER {{ Allmode[Allmode.multi] }}</button>
-    <button onclick="Metro.dialog.open('#demoDialog1')" class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">OPTIONS</button>
+    <h1 class="titre animate__animated animate__backInDown">PROJET MESI QUIZZ</h1>
+    <button class="titre animate__animated animate__bounce" (click)="navigateToPseudo(Allmode.solo)"class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">JOUER {{ Allmode[Allmode.solo] }} </button>
+    <button class="titre animate__animated animate__bounce" (click)="navigateToPseudo(Allmode.multi)" class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">JOUER {{ Allmode[Allmode.multi] }}</button>
+    <button class="titre animate__animated animate__bounce" onclick="Metro.dialog.open('#demoDialog1')" class="button myBtn rounded large" data-role="ripple" data-ripple-color="#252C4A">OPTIONS</button>
 </div>
-
-
-
-
-
 
 <span id="version">{{ version }}</span>
 

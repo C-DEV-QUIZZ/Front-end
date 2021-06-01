@@ -4,15 +4,16 @@ import { environment } from 'src/environments/environment';
 import { AjaxService } from '../ajax.service';
 import { Allmode } from '../global';
 var W3CWebSocket = require('websocket').w3cwebsocket;
-let client;
+let client : WebSocket;
+
 @Component({
     selector: 'app-accueil',
     templateUrl: './accueil.component.html',
     styleUrls: ['./accueil.component.css'],
 })
 export class AccueilComponent implements OnInit {
-    client : WebSocket;
     isConnectToWebSocketServer : boolean = false;
+
     constructor(private router: Router, private ajaxService:AjaxService) {
         
     }
@@ -39,7 +40,9 @@ export class AccueilComponent implements OnInit {
             return
         }
         this.isConnectToWebSocketServer = true;
-        return this.client = new W3CWebSocket('ws://localhost:3000');
+        
+        client= new W3CWebSocket('ws://localhost:3000');
+        return client;
     }
 
     sendNumber(client) {
@@ -48,23 +51,23 @@ export class AccueilComponent implements OnInit {
             client.send(number.toString());
         }
     }
-    
-    test(){
 
-    }
     navigateToPseudo(modeChoisit){
         if (modeChoisit == Allmode.multi){
-            if(this.isConnectToWebSocketServer)
+
+            if (this.isConnectToWebSocketServer)
             {
                 console.log("Déja connecté");
-                return
+                return ;
             }
-            this.client = this.connectWebSocket();
+            client = this.connectWebSocket();
 
-            this.client.onopen = function(){
+            console.log(client.readyState);
+
+            client.onopen = function(){
                 console.log("on open");
+                console.log(client.readyState);
             };
-            console.log(this.client.readyState);
             return;
         }
             
