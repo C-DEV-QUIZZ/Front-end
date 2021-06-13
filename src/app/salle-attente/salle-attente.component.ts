@@ -30,11 +30,11 @@ export class SalleAttenteComponent implements OnInit {
     socket;
 
     userPseudo: string = '';
-    players: any = [];
+    playersList: any = [];
     mode : any = {};
     room : any;
     ngOnInit(): void {
-
+        this.recupUserName();
         // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
         if(history.state.mode){
 
@@ -45,14 +45,11 @@ export class SalleAttenteComponent implements OnInit {
                 this.router.navigate(['/']) ;
                 return;
             }
-            this.startConnection();
+            this.startConnection(this.userPseudo,this.playersList);
         }
         else
             this.router.navigate(['/'])
 
-
-
-        this.recupUserName();
     }
 
 
@@ -75,32 +72,52 @@ export class SalleAttenteComponent implements OnInit {
             this.userPseudo = prenom;
             sessionStorage.setItem('pseudo', this.userPseudo);
         }
-        this.players.push({ nom: this.userPseudo, statut: true });
+        // this.playersList.push({ nom: this.userPseudo, statut: true });
     }
 
 
-    startConnection(){
+    startConnection(pseudo : string, playerList : any){
         if(this.isConnectToWebSocketServer)
         {
             console.log("Déja connecté");
             return
         }
-        this.client = this.connectWebSocket();
+        this.client = this.connectWebSocket(pseudo);
         this.client.onopen = function(){
             console.log("on open");
         };
-        console.log(this.client.readyState);
+
+        this.client.onmessage = function (NotifServerString){
+            
+            console.log(NotifServerString);
+            console.log(NotifServerString.data);
+
+            let notif = JSON.parse(NotifServerString.data);
+
+            if (notif.tag == "action"){
+                console.log(notif.message);
+            }
+            if (notif.tag == "connectionPlayer"){
+                console.log(notif.message);
+                debugger
+                playerList.push({ nom: notif.objet.pseudo, statut: true });
+            }
+            if (notif.tag == "message"){
+                console.log(notif.message);
+            }
+
+        }
         return;
     }
 
-    connectWebSocket(){
+    connectWebSocket(pseudoPlayer : string){
         if(this.isConnectToWebSocketServer)
         {
             console.log("Déja connecté");
             return
         }
         this.isConnectToWebSocketServer = true;
-        return this.client = new W3CWebSocket('ws://localhost:3000');
+        return this.client = new W3CWebSocket('ws://localhost:3000/'+ pseudoPlayer);
     }
 
     sendNumber(client) {
