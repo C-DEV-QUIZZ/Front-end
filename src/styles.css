@@ -17,6 +17,7 @@ html,body{
     height: 100%;
     width: 100%;
     background: var(--background-color) ;
+    overflow: hidden;
 }
 #spinner{
     position: absolute;

@@ -14,6 +14,8 @@ const routes: Routes = [
   { path: 'score', component: ScoresComponent },
   { path: 'score-solo', component: ScoreSoloComponent },
   { path: 'mode-solo', component: ModeSoloComponent },
+  { path: 'mode-multi', component: ModeSoloComponent },
+  { path: '**', component: AccueilComponent },
 ];
 
 @NgModule({

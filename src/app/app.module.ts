@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SalleAttenteComponent } from './salle-attente/salle-attente.component';
 import { ScoreSoloComponent } from './score-solo/score-solo.component';
 import { ModeSoloComponent } from './mode-solo/mode-solo.component';
+import { ModeMultiComponent } from './mode-multi/mode-multi.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ModeSoloComponent } from './mode-solo/mode-solo.component';
     ScoresComponent,
     SalleAttenteComponent,
     ScoreSoloComponent,
-    ModeSoloComponent
+    ModeSoloComponent,
+    ModeMultiComponent
   ],
   imports: [
     BrowserModule,

@@ -49,25 +49,7 @@ export class AccueilComponent implements OnInit {
         }
     }
     
-    test(){
-
-    }
     navigateToPseudo(modeChoisit){
-        if (modeChoisit == Allmode.multi){
-            if(this.isConnectToWebSocketServer)
-            {
-                console.log("Déja connecté");
-                return
-            }
-            this.client = this.connectWebSocket();
-
-            this.client.onopen = function(){
-                console.log("on open");
-            };
-            console.log(this.client.readyState);
-            return;
-        }
-            
         //permet d'envoyer le mode (enum dans global) choisit à la page pseudo
         this.router.navigateByUrl('/pseudo', { state: { mode: modeChoisit } });
     }

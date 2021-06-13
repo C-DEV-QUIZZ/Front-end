@@ -40,7 +40,6 @@ export class PseudoComponent implements OnInit {
         this.ajaxService.postEnvoiMode(data).subscribe(
             (response)=>{
                 let jsonResult=  this.globals.ajaxResultToJson(response);
-                console.log(jsonResult.chemin);
                 this.router.navigateByUrl('/'+jsonResult.chemin, { state: { mode:  this.mode.value, pseudo : this.pseudo } });
 
             },

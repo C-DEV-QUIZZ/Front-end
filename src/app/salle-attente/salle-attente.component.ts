@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Globals } from '../global';
+import { Allmode, Globals } from '../global';
+var W3CWebSocket = require('websocket').w3cwebsocket;
+let client;
 
 @Component({
     selector: 'app-salle-attente',
@@ -23,36 +25,90 @@ export class SalleAttenteComponent implements OnInit {
         // le serveur renvoi en meme temps la premiere question.
     }
 
-    use: string = '';
-    players: any = [];
+    client : WebSocket;
+    isConnectToWebSocketServer : boolean = false;
+    socket;
 
+    userPseudo: string = '';
+    players: any = [];
+    mode : any = {};
+    room : any;
     ngOnInit(): void {
-        this.RecupUserName();
+
+        // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
+        if(history.state.mode){
+
+            // check si bien en mode multi
+            this.mode.name = Allmode[history.state.mode];
+            this.mode.value = history.state.mode;           
+            if (this.mode.value != Allmode.multi){
+                this.router.navigate(['/']) ;
+                return;
+            }
+            this.startConnection();
+        }
+        else
+            this.router.navigate(['/'])
+
+
+
+        this.recupUserName();
     }
+
+
+
+
+
     /**
-     * Recupere l'user soit grace à la page pseudo
+     * Recupere le pseudo de l'user soit grace à la page pseudo
      * soit grace au session storage (si F5)
      * soit attribue un fake name.
      */
-    RecupUserName() {
+    recupUserName() {
         if (history.state.pseudo) {
-            this.use = history.state.pseudo;
-            sessionStorage.setItem('pseudo', this.use);
+            this.userPseudo = history.state.pseudo;
+            sessionStorage.setItem('pseudo', this.userPseudo);
         } else if (sessionStorage.getItem('pseudo')) {
-            this.use = sessionStorage.getItem('pseudo');
+            this.userPseudo = sessionStorage.getItem('pseudo');
         } else {
             let prenom = this.globals.getRandomPrenom();
-            this.use = prenom;
-            sessionStorage.setItem('pseudo', this.use);
+            this.userPseudo = prenom;
+            sessionStorage.setItem('pseudo', this.userPseudo);
         }
-        this.players.push({ nom: this.use, statut: true });
+        this.players.push({ nom: this.userPseudo, statut: true });
     }
 
-    /**
-     * Methode de test pour ajout dynamic utilisateur
-     */
-    public addUser() {
-        let actif = (Math.floor(Math.random() * 2) + 1) % 2 == 0 ? true : false;
-        this.players.push({ nom: this.globals.getRandomPrenom(), statut: actif });
+
+    startConnection(){
+        if(this.isConnectToWebSocketServer)
+        {
+            console.log("Déja connecté");
+            return
+        }
+        this.client = this.connectWebSocket();
+        this.client.onopen = function(){
+            console.log("on open");
+        };
+        console.log(this.client.readyState);
+        return;
     }
+
+    connectWebSocket(){
+        if(this.isConnectToWebSocketServer)
+        {
+            console.log("Déja connecté");
+            return
+        }
+        this.isConnectToWebSocketServer = true;
+        return this.client = new W3CWebSocket('ws://localhost:3000');
+    }
+
+    sendNumber(client) {
+        if (client.readyState === client.OPEN) {
+            var number = Math.round(Math.random() * 0xFFFFFF);
+            client.send(number.toString());
+        }
+    }
+
+
 }
