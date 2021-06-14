@@ -34,7 +34,7 @@
     align-items: center;
     text-transform: uppercase;
 }
-#version{
+.messageInfo{
     color: var('--text-info');
     position: absolute;
     right: 10px ;

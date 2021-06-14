@@ -43,10 +43,3 @@ input:focus{
     box-shadow: none;
 }
 
-#messageInfo{
-    color: rgb(199, 169, 169,0.5);
-    position: absolute; 
-    bottom: 5px ; 
-    right: 0;
-    margin-right: 20px;
-}

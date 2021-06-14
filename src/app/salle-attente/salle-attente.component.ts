@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { debug } from 'console';
 import { Allmode, Globals } from '../global';
 var W3CWebSocket = require('websocket').w3cwebsocket;
-let client;
 
 @Component({
     selector: 'app-salle-attente',
@@ -28,13 +27,13 @@ export class SalleAttenteComponent implements OnInit {
 
     client : WebSocket;
     isConnectToWebSocketServer : boolean = false;
-    socket;
-
     userPseudo: string = '';
     playersList: any = [];
-    userGuid;
+    userGuid : string;
+    roomGuid : string;
+
     mode : any = {};
-    room : any;
+    
     ngOnInit(): void {
         this.recupUserName();
         // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
@@ -47,7 +46,7 @@ export class SalleAttenteComponent implements OnInit {
                 this.router.navigate(['/']) ;
                 return;
             }
-            this.startConnection(this.userPseudo,this.playersList,this.userGuid);
+            this.startConnection();
         }
         else
             this.router.navigate(['/'])
@@ -78,18 +77,18 @@ export class SalleAttenteComponent implements OnInit {
     }
 
 
-    startConnection(pseudo : string, playerList : any,userGuid :string){
+    startConnection(){
         if(this.isConnectToWebSocketServer)
         {
             console.log("Déja connecté");
             return
         }
-        this.client = this.connectWebSocket(pseudo);
-        this.client.onopen = function(){
+        this.client = this.connectWebSocket(this.userPseudo);
+        this.client.onopen = ()=>{
             console.log("on open");
         };
 
-        this.client.onmessage = function (NotifServerString){
+        this.client.onmessage = (NotifServerString) =>{
             
             console.log(NotifServerString);
             console.log(NotifServerString.data);
@@ -98,20 +97,20 @@ export class SalleAttenteComponent implements OnInit {
 
             if (notif.tag == "action"){
                 console.log(notif.message);
-                userGuid = JSON.parse(JSON.stringify(notif.objet));
-                debugger
+                this.userGuid = JSON.parse(JSON.stringify(notif.objet)).clientGuid;
+                this.roomGuid = JSON.parse(JSON.stringify(notif.objet)).roomGuid;
             }
+
             if (notif.tag == "connectionPlayer"){
                 console.log(notif.message);
-                playerList.length = 0
+                this.playersList.length = 0
                 let jsonListPlayer = JSON.parse(JSON.stringify(notif.objet));
-
                 jsonListPlayer.forEach(joueur => {
                     let isPlayer = false;
-                    if (joueur.guid == userGuid){
+                    if (joueur.guid == this.userGuid ){
                         isPlayer= true;
                     }
-                    playerList.push({ nom: joueur.pseudo, isPlayer: isPlayer });
+                    this.playersList.push({ nom: joueur.pseudo, isPlayer: isPlayer });
                 });
 
             }

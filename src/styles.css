@@ -60,4 +60,10 @@ html,body{
   .myBtn:hover:before {
     left: 100%;
   }
-  
+  .messageInfo{
+    color: rgba(250, 244, 244, 0.7);
+    position: absolute; 
+    bottom: 5px ; 
+    right: 0;
+    margin-right: 20px;
+}

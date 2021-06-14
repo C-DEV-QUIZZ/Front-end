@@ -11,8 +11,8 @@ h2{
     color:  var(--text-color);
     font-family:var(--style-font);
     font-size: var(--font-size);
-    border-bottom: 1px solid white;
     padding: 30px;
+    text-decoration: underline;
 }
 .conteneur{
     min-height: 70%;
