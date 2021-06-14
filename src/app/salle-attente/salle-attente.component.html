@@ -4,16 +4,15 @@
 </div>
 
 <div class="conteneur col-lg-8">
-    <div class="cards" *ngFor="let player of playersList">
+    <div class="cards" *ngFor="let player of playersList" [ngClass]="{'bckgd': player.isPlayer == true}">
         <div class="rowIcoPlayer">
             <span class="mif-user fg-black icoPlayer"></span>
         </div>
         <div class="rowPseudoPlayer">
             <span class="pseudoPlayer">{{player.nom}}</span>
         </div>
-        <div class="rowStatutPlayer">
-            <span class="statutPlayer mif-checkmark fg-green" *ngIf="player.statut"></span>
-            <span class="statutPlayer mif-cross fg-red" *ngIf="!player.statut"></span>
+        <div class="rowPseudoPlayer" >
+            <span>{{userGuid}}</span>
         </div>
     </div>
 </div>

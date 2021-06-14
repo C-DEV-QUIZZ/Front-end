@@ -32,6 +32,7 @@ export class SalleAttenteComponent implements OnInit {
 
     userPseudo: string = '';
     playersList: any = [];
+    userGuid;
     mode : any = {};
     room : any;
     ngOnInit(): void {
@@ -46,7 +47,7 @@ export class SalleAttenteComponent implements OnInit {
                 this.router.navigate(['/']) ;
                 return;
             }
-            this.startConnection(this.userPseudo,this.playersList);
+            this.startConnection(this.userPseudo,this.playersList,this.userGuid);
         }
         else
             this.router.navigate(['/'])
@@ -77,7 +78,7 @@ export class SalleAttenteComponent implements OnInit {
     }
 
 
-    startConnection(pseudo : string, playerList : any){
+    startConnection(pseudo : string, playerList : any,userGuid :string){
         if(this.isConnectToWebSocketServer)
         {
             console.log("Déja connecté");
@@ -97,13 +98,20 @@ export class SalleAttenteComponent implements OnInit {
 
             if (notif.tag == "action"){
                 console.log(notif.message);
+                userGuid = JSON.parse(JSON.stringify(notif.objet));
+                debugger
             }
             if (notif.tag == "connectionPlayer"){
                 console.log(notif.message);
                 playerList.length = 0
                 let jsonListPlayer = JSON.parse(JSON.stringify(notif.objet));
+
                 jsonListPlayer.forEach(joueur => {
-                    playerList.push({ nom: joueur.pseudo, statut: true });
+                    let isPlayer = false;
+                    if (joueur.guid == userGuid){
+                        isPlayer= true;
+                    }
+                    playerList.push({ nom: joueur.pseudo, isPlayer: isPlayer });
                 });
 
             }

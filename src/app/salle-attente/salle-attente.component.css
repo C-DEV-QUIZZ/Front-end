@@ -28,6 +28,10 @@ h2{
     margin: 10px;
     border : 1px solid rgba(255, 255, 255, 0.582);
     box-shadow: 5px 5px 20px white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
 }
 .rowIcoPlayer{
     height: 50%;
@@ -49,7 +53,7 @@ h2{
 }
 
 .icoPlayer{
-    font-size: 5vmax;
+    font-size: 4vmax;
 }
 .pseudoPlayer{
     display: flex;
@@ -64,4 +68,8 @@ h2{
 }
 .statutPlayer{
     font-size: 1.5vmax;
+}
+
+.bckgd{
+    border: 2px solid rgba(255, 165, 0);
 }
