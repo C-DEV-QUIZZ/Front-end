@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { debug } from 'console';
 import { Allmode, Globals } from '../global';
 var W3CWebSocket = require('websocket').w3cwebsocket;
 let client;
@@ -99,8 +100,12 @@ export class SalleAttenteComponent implements OnInit {
             }
             if (notif.tag == "connectionPlayer"){
                 console.log(notif.message);
-                debugger
-                playerList.push({ nom: notif.objet.pseudo, statut: true });
+                playerList.length = 0
+                let jsonListPlayer = JSON.parse(JSON.stringify(notif.objet));
+                jsonListPlayer.forEach(joueur => {
+                    playerList.push({ nom: joueur.pseudo, statut: true });
+                });
+
             }
             if (notif.tag == "message"){
                 console.log(notif.message);
