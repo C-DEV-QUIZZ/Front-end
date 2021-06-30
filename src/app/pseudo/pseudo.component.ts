@@ -12,7 +12,9 @@ export class PseudoComponent implements OnInit {
 
     pseudo;
     mode : any = {};
-
+    numeroPersonnage : number =0
+    urlImage= "https://espace-stockage.fra1.digitaloceanspaces.com/school/MESI/Personnage/Personnage{0}.png"
+    personnageLink = this.globals.FormatString(this.urlImage,this.numeroPersonnage.toString());
     constructor( private globals: Globals,private router: Router,private ajaxService: AjaxService) { 
     }
 
@@ -47,6 +49,21 @@ export class PseudoComponent implements OnInit {
                 console.log(error);
             }
         );
+
+    }
+
+    UpdateNumeroPersonnage(nombre)
+    {
+        this.numeroPersonnage += nombre;
+        if(this.numeroPersonnage <0){
+            this.numeroPersonnage  = 39;
+        }
+        if(this.numeroPersonnage>39)
+        {
+            this.numeroPersonnage  = 0;
+        }
+        console.log(this.numeroPersonnage);
+        this.personnageLink = this.globals.FormatString(this.urlImage,this.numeroPersonnage.toString());
 
     }
 }
