@@ -49,3 +49,8 @@ td{
 .titreColonne{
     color: #2f3b72;
 }
+.conteneurCardQuestion{
+    max-height: 250px;
+    min-height: 250px;
+    overflow: auto !important;
+}

@@ -90,21 +90,19 @@ export class SalleAttenteComponent implements OnInit {
 
         this.client.onmessage = (NotifServerString) =>{
             
-            console.log(NotifServerString);
-            console.log(NotifServerString.data);
+            // console.log(NotifServerString);
+            // console.log(NotifServerString.data);
 
             let notif = JSON.parse(NotifServerString.data);
 
             if (notif.tag == "action"){
-                console.log(notif.message);
-                this.userGuid = JSON.parse(JSON.stringify(notif.objet)).clientGuid;
-                this.roomGuid = JSON.parse(JSON.stringify(notif.objet)).roomGuid;
+                this.userGuid = notif.objet.clientGuid;
+                this.roomGuid = notif.objet.roomGuid;
             }
 
             if (notif.tag == "connectionPlayer"){
-                console.log(notif.message);
                 this.playersList.length = 0
-                let jsonListPlayer = JSON.parse(JSON.stringify(notif.objet));
+                let jsonListPlayer = notif.objet;
                 jsonListPlayer.forEach(joueur => {
                     let isPlayer = false;
                     if (joueur.guid == this.userGuid ){
@@ -112,10 +110,17 @@ export class SalleAttenteComponent implements OnInit {
                     }
                     this.playersList.push({ nom: joueur.pseudo, isPlayer: isPlayer });
                 });
-
             }
             if (notif.tag == "message"){
-                console.log(notif.message);
+                // console.log(notif.message);
+            }
+            if(notif.tag == "GameIsReady"){
+
+                document.getElementById("MessageTitre").innerHTML=notif.message;
+                var Img=  document.getElementById("imageWait");
+                Img.setAttribute("src", "https://espace-stockage.fra1.digitaloceanspaces.com/school/MESI/Gif4-Question.gif");
+                // console.log("GameIsReady");
+                
             }
 
         }

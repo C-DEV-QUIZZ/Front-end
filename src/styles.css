@@ -17,7 +17,10 @@ html,body{
     height: 100%;
     width: 100%;
     background: var(--background-color) ;
-    overflow: hidden;
+}
+
+.noScroll{
+  overflow: hidden;
 }
 #spinner{
     position: absolute;
@@ -66,4 +69,10 @@ html,body{
     bottom: 5px ; 
     right: 0;
     margin-right: 20px;
+}
+.bg-success{
+  background-color: rgba(144, 238, 144, 0.200);
+}
+.bg-warning{
+  background-color: rgba(238, 144, 144, 0.200);
 }

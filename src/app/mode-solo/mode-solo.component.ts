@@ -32,10 +32,10 @@ export class ModeSoloComponent implements OnInit {
             (response) => {
                 let jsonResult = this.globals.ajaxResultToJson(response);
                 this.listQuestions = jsonResult;
-                console.log(this.listQuestions);
+                // console.log(this.listQuestions);
             },
             (error) => {
-                console.log(error);
+                // console.log(error);
             }
         );
     }
@@ -45,16 +45,16 @@ export class ModeSoloComponent implements OnInit {
 
     // lorsque l'on clique sur une réponse :
     saveReponse(questionId, reponseId) {
-        console.log(questionId);
-        console.log(reponseId);
+        // console.log(questionId);
+        // console.log(reponseId);
 
 
         this.listQuestions.shift();
         this.listReponse.push({ questionId: questionId, reponseUtilisateurId: reponseId });
         if (this.listQuestions.length == 0) {
             this.messageInfo = "no more question";
-            console.log("fini : ")
-            console.log(this.listReponse)
+            // console.log("fini : ")
+            // console.log(this.listReponse)
 
             this.envoiReponse();
         }
@@ -68,9 +68,12 @@ export class ModeSoloComponent implements OnInit {
                 // get nombre de point 
                 let jsonResult = this.globals.ajaxResultToJson(Response);
                 let nbPointsJoueur = jsonResult.points;
+                let bonneReponseList = jsonResult.bonneReponseList;
+                let reponsePlayer = jsonResult.reponsePlayer;
+                let poitnMax = jsonResult.poitnMax;
 
                 // des qu'il aura le nombre point du joueurs on bifurques vers la page résultat avec le nombre de point :
-                this.router.navigateByUrl('/score-solo', { state: { points: nbPointsJoueur, pseudo: this.pseudo } });
+                this.router.navigateByUrl('/score-solo', { state: { points: nbPointsJoueur,bonneReponseList:bonneReponseList, reponsePlayer:reponsePlayer, pseudo: this.pseudo,poitnMax:poitnMax } });
             },
             (error) => {
                 console.log(error);
