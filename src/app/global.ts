@@ -28,7 +28,6 @@ export class Globals {
         return true;
     }
 
-
     // prend l'id d'une balise paragraphe : exemple =>  "inputMessageModalExemple"
     // Ne pas oublier les guillements !
     public PrintMessage(element,message,error=true,time=3000)
@@ -82,11 +81,10 @@ export class Globals {
         }
         return str;
     }
+
 }
 
 export enum Allmode{
     solo =1,
     multi=2 
-
-
 }
