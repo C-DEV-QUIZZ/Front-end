@@ -92,8 +92,8 @@ export class SalleAttenteComponent implements OnInit {
             if(notif.tag == "GameIsReady"){
                 this.readyToPlay(notif);
             }
-            if(notif.tag == "NewQuestion"){
-                this.printNomberQuestion(notif);
+            if(notif.tag == "ReceivedQuestion"){
+                this.printQuestion(notif);
             }
 
         }
@@ -141,11 +141,9 @@ export class SalleAttenteComponent implements OnInit {
         document.getElementById("MessageTitre").innerHTML=notif.message;
         var Img=  document.getElementById("imageWait");
         Img.setAttribute("src", "https://espace-stockage.fra1.digitaloceanspaces.com/school/MESI/Gif4-Question.gif");
-    
-    
     }
 
-    printNomberQuestion(notif :any)
+    printQuestion(notif :any)
     {
         console.log(notif.message);
         console.log(notif.objet);
