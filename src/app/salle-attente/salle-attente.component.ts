@@ -17,6 +17,7 @@ export class SalleAttenteComponent implements OnInit {
     userGuid : string;
     roomGuid : string;
     mode : any = {};
+    nomberAppelbackEnd=-1;
 
     constructor(private router: Router, private globals: Globals) {
     }
@@ -91,6 +92,9 @@ export class SalleAttenteComponent implements OnInit {
             if(notif.tag == "GameIsReady"){
                 this.readyToPlay(notif);
             }
+            if(notif.tag == "NewQuestion"){
+                this.printNomberQuestion(notif);
+            }
 
         }
         return;
@@ -141,7 +145,12 @@ export class SalleAttenteComponent implements OnInit {
     
     }
 
-    
+    printNomberQuestion(notif :any)
+    {
+        console.log(notif.message);
+        console.log(notif.objet);
+        this.nomberAppelbackEnd = notif.message;
+    }
 
     // sendNumber(client) {
     //     if (client.readyState === client.OPEN) {
