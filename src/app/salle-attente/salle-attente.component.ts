@@ -10,7 +10,7 @@ var W3CWebSocket = require('websocket').w3cwebsocket;
     styleUrls: ['./salle-attente.component.css'],
 })
 export class SalleAttenteComponent implements OnInit {
-    client : WebSocket;
+    // client : WebSocket;
     isConnectToWebSocketServer : boolean = false;
     userPseudo: string = '';
     playersList: any = [];
@@ -18,17 +18,14 @@ export class SalleAttenteComponent implements OnInit {
     roomGuid : string;
     mode : any = {};
     nomberAppelbackEnd=-1;
-
-    constructor(private router: Router, private globals: Globals) {
-    }
-
+    minutor : number = 0;
+    constructor(private router: Router, public globals: Globals) {}
 
     
     ngOnInit(): void {
         this.recupUserName();
         // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
         if(history.state.mode){
-
             // check si bien en mode multi
             this.mode.name = Allmode[history.state.mode];
             this.mode.value = history.state.mode;           
@@ -40,7 +37,6 @@ export class SalleAttenteComponent implements OnInit {
         }
         else
             this.router.navigate(['/'])
-
     }
 
     /**
@@ -67,38 +63,64 @@ export class SalleAttenteComponent implements OnInit {
             console.log("Déja connecté");
             return
         }
-        this.client = this.connectWebSocket(this.userPseudo);
-        this.client.onopen = ()=>{
-            console.log("on open");
+        
+        this.globals.client = this.connectWebSocket(this.userPseudo);
+        this.globals.client.onopen = ()=>{
+            // console.log("on open");
         };
 
-        this.client.onmessage = (NotifServerString) =>{
-            
+        this.globals.client.onmessage = (NotifServerString) =>{
             // console.log(NotifServerString);
             // console.log(NotifServerString.data);
-
             let notif = JSON.parse(NotifServerString.data);
 
             if (notif.tag == "action"){
                 this.setInfoRoomAndPlayer(notif);
             }
-
             if (notif.tag == "connectionPlayer"){
                 this.updatePlayerList(notif);
             }
             if (notif.tag == "message"){
                 // console.log(notif.message);
             }
-            if(notif.tag == "GameIsReady"){
-                this.readyToPlay(notif);
+            if(notif.tag == "PlayersReadyToPlay"){
+                this.PlayersReadyToPlay(notif);
             }
-            if(notif.tag == "ReceivedQuestion"){
-                this.printQuestion(notif);
+            if(notif.tag == "GameReadyToPlay"){
+                this.GameReadyToPlay(notif);
             }
-
+            if(notif.tag == "changePage"){
+                this.ChangePage(notif);
+            }
         }
         return;
     }
+
+    ChangePage(notif:any){
+        this.router.navigateByUrl('/'+notif.message, { state: { mode:  this.mode.value, pseudo : this.userPseudo } });
+    }
+
+    GameReadyToPlay(notif :any)
+    {   
+        this.minutor = notif.objet;
+        document.getElementById("MessageTitre").innerHTML=notif.message;
+        let button = document.getElementById("minuteur");
+        button.innerHTML = this.minutor.toString();
+        button.removeAttribute("hidden"); 
+        let TimerInterval = setInterval(()=>{
+            this.minutor--;
+            document.getElementById("minuteur").innerHTML = this.minutor.toString();            
+            if(this.minutor ==0)
+            {
+                clearInterval(TimerInterval);
+                return;
+            }
+        },1000);
+
+        var Img=  document.getElementById("imageWait");
+        Img.setAttribute("src", "https://espace-stockage.fra1.digitaloceanspaces.com/school/MESI/Gif1-Question.gif");
+    }
+
 
     /**
      * Connect to web socket servor if i'm not connect
@@ -112,7 +134,7 @@ export class SalleAttenteComponent implements OnInit {
             return
         }
         this.isConnectToWebSocketServer = true;
-        return this.client = new W3CWebSocket('ws://localhost:3000/'+ pseudoPlayer);
+        return this.globals.client = new W3CWebSocket('ws://localhost:3000/'+ pseudoPlayer);
     }
 
     setInfoRoomAndPlayer(notif :any)
@@ -128,34 +150,17 @@ export class SalleAttenteComponent implements OnInit {
         jsonListPlayer.forEach(joueur => {
             let isPlayer = false;
             if (joueur.guid == this.userGuid ){
-                // si mon joueur
-                // alors une bordure orange
+                // si mon joueur alors une bordure orange
                 isPlayer= true;
             }
             this.playersList.push({ nom: joueur.pseudo, isPlayer: isPlayer });
         });
     }
 
-    readyToPlay(notif :any)
+    PlayersReadyToPlay(notif :any)
     {
         document.getElementById("MessageTitre").innerHTML=notif.message;
         var Img=  document.getElementById("imageWait");
         Img.setAttribute("src", "https://espace-stockage.fra1.digitaloceanspaces.com/school/MESI/Gif4-Question.gif");
     }
-
-    printQuestion(notif :any)
-    {
-        console.log(notif.message);
-        console.log(notif.objet);
-        this.nomberAppelbackEnd = notif.message;
-    }
-
-    // sendNumber(client) {
-    //     if (client.readyState === client.OPEN) {
-    //         var number = Math.round(Math.random() * 0xFFFFFF);
-    //         client.send(number.toString());
-    //     }
-    // }
-
-
 }

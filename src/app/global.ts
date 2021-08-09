@@ -6,7 +6,7 @@ declare let toastr : any;
     providedIn: 'root'
 })
 export class Globals {
-
+    client : WebSocket;
     constructor(private router: Router){}
 
     public validateEmail(email) {

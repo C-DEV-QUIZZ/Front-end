@@ -20,7 +20,6 @@ export class PseudoComponent implements OnInit {
 
 
     ngOnInit(): void {
-        
         // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
         if(history.state.mode){
             this.mode.name = Allmode[history.state.mode];
@@ -62,7 +61,6 @@ export class PseudoComponent implements OnInit {
         {
             this.numeroPersonnage  = 0;
         }
-        console.log(this.numeroPersonnage);
         this.personnageLink = this.globals.FormatString(this.urlImage,this.numeroPersonnage.toString());
 
     }
