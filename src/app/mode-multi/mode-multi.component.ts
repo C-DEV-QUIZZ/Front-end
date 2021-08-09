@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { debug } from 'node:console';
-import { Questions } from 'src/Models/Models';
+import { Questions, ReponseJoueur, Reponses } from 'src/Models/Models';
 import { Allmode, Globals } from '../global';
 
 @Component({
@@ -17,6 +16,8 @@ export class ModeMultiComponent implements OnInit {
     minutor:number=0;
     question : Questions;
     TimerInterval;
+    listReponseJoueur : ReponseJoueur[] =[];
+
     ngOnInit(): void {
         this.recupUserName();
         if(history.state.mode){
@@ -71,9 +72,25 @@ export class ModeMultiComponent implements OnInit {
             if(this.minutor <=0)
             {
                 clearInterval(this.TimerInterval);
+                // console.table(this.listReponseJoueur);
                 return;
             }
         },1000);
         this.question = notif.objet;
     }
+
+        // lorsque l'on clique sur une réponse :
+    saveReponse(question_Id, reponseId,button) {
+        this.listReponseJoueur = this.listReponseJoueur.filter(reponse=> reponse.questionId != question_Id);
+        this.listReponseJoueur.push({questionId : question_Id, reponseUtilisateurId: reponseId });
+        var elements = document.getElementsByClassName("btnReponse");
+        for(var i = elements.length - 1; i >= 0; --i)
+        {
+            let element= elements[i] as HTMLElement;
+            element.style.border = 'none';
+            element.style.border = '1px solid rgb(146, 148, 248);';
+        }
+        button.style.border = '3px solid lightgreen';
+    }
+    
 }

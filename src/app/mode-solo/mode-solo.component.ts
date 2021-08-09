@@ -47,8 +47,6 @@ export class ModeSoloComponent implements OnInit {
     saveReponse(questionId, reponseId) {
         // console.log(questionId);
         // console.log(reponseId);
-
-
         this.listQuestions.shift();
         this.listReponse.push({ questionId: questionId, reponseUtilisateurId: reponseId });
         if (this.listQuestions.length == 0) {
