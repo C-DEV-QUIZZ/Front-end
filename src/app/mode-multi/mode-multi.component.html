@@ -1,1 +1,11 @@
-<p>mode-multi works!</p>
+<button id="minuteurMulti" hidden class="button cycle outline yellow">{{ minutor }}</button>
+<small *ngIf="question">nb point: {{question.points}} </small>
+
+<div class="container" *ngIf="question">
+    <h6 class="fg-white titre" >{{ question.texte }}?  </h6>
+
+    <div id="blocReponse" class="col-xl-10">
+        <button class="myBtn" *ngFor="let reponse of question.reponses" (click)="saveReponse(question.id,reponse.id)" >{{reponse.texte}}</button>
+    </div>
+</div>
+

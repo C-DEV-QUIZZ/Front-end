@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { debug } from 'node:console';
+import { Questions } from 'src/Models/Models';
 import { Allmode, Globals } from '../global';
 
 @Component({
@@ -12,9 +14,11 @@ export class ModeMultiComponent implements OnInit {
     constructor(private router: Router, public globals: Globals) { }
     mode : any = {};
     userPseudo;
+    minutor:number=0;
+    question : Questions;
+    TimerInterval;
     ngOnInit(): void {
         this.recupUserName();
-        debugger
         if(history.state.mode){
             // check si bien en mode multi
             this.mode.name = Allmode[history.state.mode];
@@ -44,12 +48,6 @@ export class ModeMultiComponent implements OnInit {
         }
     }
 
-
-    printQuestion(notif: any) {
-        console.log(notif.message);
-        console.log(notif.objet);
-    }
-
     StartListenWebSocket() {
         this.globals.client.onmessage = (NotifServerString) =>{
             // console.log(NotifServerString);
@@ -59,5 +57,23 @@ export class ModeMultiComponent implements OnInit {
                 this.printQuestion(notif);
             }
         }
+    }
+
+    printQuestion(notif: any) {
+        clearInterval(this.TimerInterval);
+        this.minutor = Number(notif.message);
+        let button = document.getElementById("minuteurMulti");
+        button.innerHTML = this.minutor.toString();
+        button.removeAttribute("hidden"); 
+        this.TimerInterval = setInterval(()=>{
+            this.minutor--;
+            document.getElementById("minuteurMulti").innerHTML = this.minutor.toString();            
+            if(this.minutor <=0)
+            {
+                clearInterval(this.TimerInterval);
+                return;
+            }
+        },1000);
+        this.question = notif.objet;
     }
 }

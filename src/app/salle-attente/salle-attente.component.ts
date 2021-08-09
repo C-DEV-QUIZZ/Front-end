@@ -19,6 +19,7 @@ export class SalleAttenteComponent implements OnInit {
     mode : any = {};
     nomberAppelbackEnd=-1;
     minutor : number = 0;
+    TimerInterval ;
     constructor(private router: Router, public globals: Globals) {}
 
     
@@ -97,6 +98,7 @@ export class SalleAttenteComponent implements OnInit {
     }
 
     ChangePage(notif:any){
+        clearInterval(this.TimerInterval);
         this.router.navigateByUrl('/'+notif.message, { state: { mode:  this.mode.value, pseudo : this.userPseudo } });
     }
 
@@ -107,12 +109,12 @@ export class SalleAttenteComponent implements OnInit {
         let button = document.getElementById("minuteur");
         button.innerHTML = this.minutor.toString();
         button.removeAttribute("hidden"); 
-        let TimerInterval = setInterval(()=>{
+        this.TimerInterval = setInterval(()=>{
             this.minutor--;
             document.getElementById("minuteur").innerHTML = this.minutor.toString();            
-            if(this.minutor ==0)
+            if(this.minutor <=0)
             {
-                clearInterval(TimerInterval);
+                clearInterval(this.TimerInterval);
                 return;
             }
         },1000);
