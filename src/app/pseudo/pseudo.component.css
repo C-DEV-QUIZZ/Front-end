@@ -22,13 +22,6 @@
     color: var(--text-color);
     font-weight: bold;
 }
-.btnHome{
-    background: var(--color-button);
-    position: fixed; 
-    bottom: 5px ; 
-    left: 5px;
-    color: var(--text-color);
-}
 #inputPseudo{
     background: transparent;
     border: 0 ;

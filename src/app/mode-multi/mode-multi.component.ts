@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Questions, ReponseJoueur, Reponses } from 'src/Models/Models';
+import { Message, Questions, ReponseJoueur, Reponses } from 'src/app/Models/Models';
 import { Allmode, Globals } from '../global';
 
 @Component({
@@ -57,6 +57,14 @@ export class ModeMultiComponent implements OnInit {
             if(notif.tag == "ReceivedQuestion"){
                 this.printQuestion(notif);
             }
+            if(notif.tag == "GameIsFinish"){
+                clearInterval(this.TimerInterval);
+
+                let Msg : Message = {tag : "PlayerResponse", message:"", objet: this.listReponseJoueur}
+                let JsonReponseJoueurList = JSON.stringify(Msg);
+                this.globals.client.send(JsonReponseJoueurList);
+                this.router.navigateByUrl('/'+notif.message, { state: { mode:  this.mode.value, pseudo : this.userPseudo } });
+            }
         }
     }
 
@@ -77,6 +85,7 @@ export class ModeMultiComponent implements OnInit {
             }
         },1000);
         this.question = notif.objet;
+        this.listReponseJoueur.push({questionId : this.question.id, reponseUtilisateurId : -1});
     }
 
         // lorsque l'on clique sur une réponse :

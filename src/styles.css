@@ -76,3 +76,10 @@ html,body{
 .bg-warning{
   background-color: rgba(238, 144, 144, 0.200);
 }
+.btnHome{
+  background: var(--color-button);
+  position: fixed; 
+  bottom: 5px ; 
+  left: 5px;
+  color: var(--text-color) !important;
+}

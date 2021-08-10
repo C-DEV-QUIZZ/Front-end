@@ -30,25 +30,9 @@ export class AccueilComponent implements OnInit {
         this.colorBackground = getComputedStyle(
             document.documentElement
         ).getPropertyValue('--background-color');
+
     }
 
-    connectWebSocket(){
-        if(this.isConnectToWebSocketServer)
-        {
-            console.log("Déja connecté");
-            return
-        }
-        this.isConnectToWebSocketServer = true;
-        return this.client = new W3CWebSocket('ws://localhost:3000');
-    }
-
-    sendNumber(client) {
-        if (client.readyState === client.OPEN) {
-            var number = Math.round(Math.random() * 0xFFFFFF);
-            client.send(number.toString());
-        }
-    }
-    
     navigateToPseudo(modeChoisit){
         //permet d'envoyer le mode (enum dans global) choisit à la page pseudo
         this.router.navigateByUrl('/pseudo', { state: { mode: modeChoisit } });

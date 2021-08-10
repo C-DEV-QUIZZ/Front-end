@@ -66,10 +66,6 @@ export class SalleAttenteComponent implements OnInit {
         }
         
         this.globals.client = this.connectWebSocket(this.userPseudo);
-        this.globals.client.onopen = ()=>{
-            // console.log("on open");
-        };
-
         this.globals.client.onmessage = (NotifServerString) =>{
             // console.log(NotifServerString);
             // console.log(NotifServerString.data);

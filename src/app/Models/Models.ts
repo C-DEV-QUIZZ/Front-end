@@ -26,3 +26,8 @@ export interface Difficultes{
     id : number;
     nom : string;
 }
+export interface Message{
+     tag : String;
+     message :String;
+     objet : any;
+}
