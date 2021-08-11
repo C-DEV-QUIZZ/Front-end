@@ -31,3 +31,9 @@ export interface Message{
      message :String;
      objet : any;
 }
+export interface ResultScore
+{
+    pseudo :string;
+    score : number;
+    scoreMax : number;
+}

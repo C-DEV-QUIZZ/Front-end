@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Allmode, Globals } from '../global';
+import { ResultScore } from '../Models/Models';
 
 @Component({
   selector: 'app-scores',
@@ -11,6 +12,7 @@ export class ScoresComponent implements OnInit {
   mode : any = {};
   userPseudo;
   haveAllScore =false;
+  resultScoreList : ResultScore[] = [];
   constructor(private router: Router, public globals: Globals) { }
 
   ngOnInit(): void {
@@ -50,7 +52,9 @@ StartListenWebSocket() {
         // console.log(NotifServerString.data);
         let notif = JSON.parse(NotifServerString.data);
 
-        if(notif.tag == "123"){
+        if(notif.tag == "receivedScore"){
+            this.resultScoreList = JSON.parse(notif.objet);
+            this.haveAllScore = true;
         }
     }
 }

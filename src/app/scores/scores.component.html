@@ -15,36 +15,17 @@
         <table class="table">
             <thead>
             <tr>
+                <th class="text-left"><span class="titreColonne">PLACE</span></th>
                 <th class="text-left"><span class="titreColonne">NOM</span></th>
                 <th class="text-right"><span class="titreColonne">SCORE</span></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="text-left">Bill</td>
-                <td class="text-right">300</td>
-            </tr>
-            <tr>
-                <td class="text-left">Steve</td>
-                <td class="text-right">250</td>
-            </tr>
-            <tr>
-                <td class="text-left">Larry</td>
-                <td class="text-right">225</td>
-            </tr>
-            <tr>
-                <td class="text-left">Edouard</td>
-                <td class="text-right">200</td>
-            </tr>
-            <tr>
-                <td class="text-left">Jean jean</td>
-                <td class="text-right">190</td>
-            </tr>
-            <tr>
-                <td class="text-left">Benedicte</td>
-                <td class="text-right">150</td>
-            </tr>
-
+                <tr *ngFor="let resultScore of resultScoreList; let index = index; let isFirst = first;">
+                    <td class="text-left"> {{ index + 1 }}e</td>
+                    <td class="text-left">{{ resultScore.pseudo}}</td>
+                    <td class="text-right">{{ resultScore.score}}/{{resultScore.scoreMax}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
