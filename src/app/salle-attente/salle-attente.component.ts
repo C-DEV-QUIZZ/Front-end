@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Globals } from '../global';
+import { debug } from 'console';
+import { Allmode, Globals } from '../global';
+var W3CWebSocket = require('websocket').w3cwebsocket;
 
 @Component({
     selector: 'app-salle-attente',
@@ -8,51 +10,155 @@ import { Globals } from '../global';
     styleUrls: ['./salle-attente.component.css'],
 })
 export class SalleAttenteComponent implements OnInit {
-    constructor(private router: Router, private globals: Globals) {
-        /* == ALGORTHIME FRONT END DE LA SALLE D ATTENTE == */
-        // A l'arrivée sur cette route une requete ajax interroge le server.
-        // Le serveur attribue et renvoi un lobby à l'utilisateur (lobby à un id unique).
-        // Le serveur renvoi alors le nom des joueurs déja dans la salle d'attente du lobby.
-        // Le serveur renvoi le temps qu'il reste avant le début de session.
-        // A la réponse du serveur on incremente la liste des players (this.utilisateurs).
-        // On déclence le timeur qui affiche au client le temps restant avant le début de session
-        /* Passage a revoir :*/
-        // Chaque X seconde(s) on interroge le serveur pour obtenir les players co/déco.
-        // Une fois le timeur finit (drapeau coté serveur) =>
-        // le serveur transmets une clé unique qui permet au client de passé à l'écran des questions
-        // le serveur renvoi en meme temps la premiere question.
-    }
+    // client : WebSocket;
+    isConnectToWebSocketServer : boolean = false;
+    userPseudo: string = '';
+    playersList: any = [];
+    userGuid : string;
+    roomGuid : string;
+    mode : any = {};
+    nomberAppelbackEnd=-1;
+    minutor : number = 0;
+    TimerInterval ;
+    constructor(private router: Router, public globals: Globals) {}
 
-    use: string = '';
-    players: any = [];
-
+    
     ngOnInit(): void {
-        this.RecupUserName();
+        this.recupUserName();
+        // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
+        if(history.state.mode){
+            // check si bien en mode multi
+            this.mode.name = Allmode[history.state.mode];
+            this.mode.value = history.state.mode;           
+            if (this.mode.value != Allmode.multi){
+                this.router.navigate(['/']) ;
+                return;
+            }
+            this.startConnection();
+        }
+        else
+            this.router.navigate(['/'])
     }
+
     /**
-     * Recupere l'user soit grace à la page pseudo
-     * soit grace au session storage (si F5)
-     * soit attribue un fake name.
+     * Recupere le pseudo de l'user soit grace à la page pseudo
+     * soit grace au session storage
      */
-    RecupUserName() {
+    recupUserName() {
         if (history.state.pseudo) {
-            this.use = history.state.pseudo;
-            sessionStorage.setItem('pseudo', this.use);
+            this.userPseudo = history.state.pseudo;
+            sessionStorage.setItem('pseudo', this.userPseudo);
         } else if (sessionStorage.getItem('pseudo')) {
-            this.use = sessionStorage.getItem('pseudo');
+            this.userPseudo = sessionStorage.getItem('pseudo');
         } else {
             let prenom = this.globals.getRandomPrenom();
-            this.use = prenom;
-            sessionStorage.setItem('pseudo', this.use);
+            this.userPseudo = prenom;
+            sessionStorage.setItem('pseudo', this.userPseudo);
         }
-        this.players.push({ nom: this.use, statut: true });
     }
 
+
+    startConnection(){
+        if(this.isConnectToWebSocketServer)
+        {
+            console.log("Déja connecté");
+            return
+        }
+        
+        this.globals.client = this.connectWebSocket(this.userPseudo);
+        this.globals.client.onmessage = (NotifServerString) =>{
+            // console.log(NotifServerString);
+            // console.log(NotifServerString.data);
+            let notif = JSON.parse(NotifServerString.data);
+
+            if (notif.tag == "action"){
+                this.setInfoRoomAndPlayer(notif);
+            }
+            if (notif.tag == "connectionPlayer"){
+                this.updatePlayerList(notif);
+            }
+            if (notif.tag == "message"){
+                // console.log(notif.message);
+            }
+            if(notif.tag == "PlayersReadyToPlay"){
+                this.PlayersReadyToPlay(notif);
+            }
+            if(notif.tag == "GameReadyToPlay"){
+                this.GameReadyToPlay(notif);
+            }
+            if(notif.tag == "changePage"){
+                this.ChangePage(notif);
+            }
+        }
+        return;
+    }
+
+    ChangePage(notif:any){
+        clearInterval(this.TimerInterval);
+        this.router.navigateByUrl('/'+notif.message, { state: { mode:  this.mode.value, pseudo : this.userPseudo } });
+    }
+
+    GameReadyToPlay(notif :any)
+    {   
+        this.minutor = notif.objet;
+        document.getElementById("MessageTitre").innerHTML=notif.message;
+        let button = document.getElementById("minuteur");
+        button.innerHTML = this.minutor.toString();
+        button.removeAttribute("hidden"); 
+        this.TimerInterval = setInterval(()=>{
+            this.minutor--;
+            document.getElementById("minuteur").innerHTML = this.minutor.toString();            
+            if(this.minutor <=0)
+            {
+                clearInterval(this.TimerInterval);
+                return;
+            }
+        },1000);
+
+        var Img=  document.getElementById("imageWait");
+        Img.setAttribute("src", "https://espace-stockage.fra1.digitaloceanspaces.com/school/MESI/Gif1-Question.gif");
+    }
+
+
     /**
-     * Methode de test pour ajout dynamic utilisateur
+     * Connect to web socket servor if i'm not connect
+     * @param pseudoPlayer 
+     * @returns 
      */
-    public addUser() {
-        let actif = (Math.floor(Math.random() * 2) + 1) % 2 == 0 ? true : false;
-        this.players.push({ nom: this.globals.getRandomPrenom(), statut: actif });
+    connectWebSocket(pseudoPlayer : string){
+        if(this.isConnectToWebSocketServer)
+        {
+            console.log("Déja connecté");
+            return
+        }
+        this.isConnectToWebSocketServer = true;
+        return this.globals.client = new W3CWebSocket('ws://localhost:3000/'+ pseudoPlayer);
+    }
+
+    setInfoRoomAndPlayer(notif :any)
+    {
+        this.userGuid = notif.objet.clientGuid;
+        this.roomGuid = notif.objet.roomGuid;
+    }
+
+    updatePlayerList(notif :any)
+    {
+        this.playersList.length = 0
+        let jsonListPlayer = notif.objet;
+        jsonListPlayer.forEach(joueur => {
+            let isPlayer = false;
+            if (joueur.guid == this.userGuid ){
+                // si mon joueur alors une bordure orange
+                isPlayer= true;
+            }
+            this.playersList.push({ nom: joueur.pseudo, isPlayer: isPlayer });
+        });
+    }
+
+    PlayersReadyToPlay(notif :any)
+    {
+        document.getElementById("MessageTitre").innerHTML=notif.message;
+        var Img=  document.getElementById("imageWait");
+        Img.setAttribute("src", "https://espace-stockage.fra1.digitaloceanspaces.com/school/MESI/Gif4-Question.gif");
     }
 }

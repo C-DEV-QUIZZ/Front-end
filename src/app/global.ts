@@ -6,7 +6,7 @@ declare let toastr : any;
     providedIn: 'root'
 })
 export class Globals {
-
+    client : WebSocket;
     constructor(private router: Router){}
 
     public validateEmail(email) {
@@ -27,7 +27,6 @@ export class Globals {
         }
         return true;
     }
-
 
     // prend l'id d'une balise paragraphe : exemple =>  "inputMessageModalExemple"
     // Ne pas oublier les guillements !
@@ -76,11 +75,16 @@ export class Globals {
         return result;
     }
 
+    public FormatString(str: string, ...val: string[]) {
+        for (let index = 0; index < val.length; index++) {
+            str = str.replace(`{${index}}`, val[index]);
+        }
+        return str;
+    }
+
 }
 
 export enum Allmode{
     solo =1,
     multi=2 
-
-
 }

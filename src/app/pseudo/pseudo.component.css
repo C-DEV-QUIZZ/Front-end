@@ -22,23 +22,6 @@
     color: var(--text-color);
     font-weight: bold;
 }
-.myBtn{
-    font-weight: bold;
-    background: var(--color-button);
-    font-size: 3.5vmax;
-    height: 25%;
-    width: 50%;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.btnHome{
-    background: var(--color-button);
-    position: fixed; 
-    bottom: 5px ; 
-    left: 5px;
-}
 #inputPseudo{
     background: transparent;
     border: 0 ;
@@ -53,10 +36,3 @@ input:focus{
     box-shadow: none;
 }
 
-#messageInfo{
-    color: rgb(199, 169, 169,0.5);
-    position: absolute; 
-    bottom: 5px ; 
-    right: 0;
-    margin-right: 20px;
-}

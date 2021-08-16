@@ -12,13 +12,14 @@ export class PseudoComponent implements OnInit {
 
     pseudo;
     mode : any = {};
-
+    numeroPersonnage : number =0
+    urlImage= "https://espace-stockage.fra1.digitaloceanspaces.com/school/MESI/Personnage/Personnage{0}.png"
+    personnageLink = this.globals.FormatString(this.urlImage,this.numeroPersonnage.toString());
     constructor( private globals: Globals,private router: Router,private ajaxService: AjaxService) { 
     }
 
 
     ngOnInit(): void {
-        
         // si pas de mode renseigné par la navigation ou par les local storage on renvoi vers l'accueil     
         if(history.state.mode){
             this.mode.name = Allmode[history.state.mode];
@@ -40,7 +41,6 @@ export class PseudoComponent implements OnInit {
         this.ajaxService.postEnvoiMode(data).subscribe(
             (response)=>{
                 let jsonResult=  this.globals.ajaxResultToJson(response);
-                console.log(jsonResult.chemin);
                 this.router.navigateByUrl('/'+jsonResult.chemin, { state: { mode:  this.mode.value, pseudo : this.pseudo } });
 
             },
@@ -48,6 +48,20 @@ export class PseudoComponent implements OnInit {
                 console.log(error);
             }
         );
+
+    }
+
+    UpdateNumeroPersonnage(nombre)
+    {
+        this.numeroPersonnage += nombre;
+        if(this.numeroPersonnage <0){
+            this.numeroPersonnage  = 39;
+        }
+        if(this.numeroPersonnage>39)
+        {
+            this.numeroPersonnage  = 0;
+        }
+        this.personnageLink = this.globals.FormatString(this.urlImage,this.numeroPersonnage.toString());
 
     }
 }

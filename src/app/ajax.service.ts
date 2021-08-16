@@ -23,7 +23,6 @@ export class AjaxService{
     private urlPingBack = this.adresse+"ping";
 
     postEnvoiMode(data){
-        console.log(data);
         return this.http.post(this.urlModeController,data);
     }
     postConnexionModeSolo(data){

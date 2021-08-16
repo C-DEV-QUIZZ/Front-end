@@ -4,15 +4,16 @@ import { environment } from 'src/environments/environment';
 import { AjaxService } from '../ajax.service';
 import { Allmode } from '../global';
 var W3CWebSocket = require('websocket').w3cwebsocket;
-let client;
+let client : WebSocket;
+
 @Component({
     selector: 'app-accueil',
     templateUrl: './accueil.component.html',
     styleUrls: ['./accueil.component.css'],
 })
 export class AccueilComponent implements OnInit {
-    client : WebSocket;
     isConnectToWebSocketServer : boolean = false;
+
     constructor(private router: Router, private ajaxService:AjaxService) {
         
     }
@@ -30,10 +31,46 @@ export class AccueilComponent implements OnInit {
         this.colorBackground = getComputedStyle(
             document.documentElement
         ).getPropertyValue('--background-color');
+    }
 
+    connectWebSocket(){
+        if(this.isConnectToWebSocketServer)
+        {
+            console.log("Déja connecté");
+            return
+        }
+        this.isConnectToWebSocketServer = true;
+        
+        client= new W3CWebSocket('ws://localhost:3000');
+        return client;
+    }
+
+    sendNumber(client) {
+        if (client.readyState === client.OPEN) {
+            var number = Math.round(Math.random() * 0xFFFFFF);
+            client.send(number.toString());
+        }
     }
 
     navigateToPseudo(modeChoisit){
+        if (modeChoisit == Allmode.multi){
+
+            if (this.isConnectToWebSocketServer)
+            {
+                console.log("Déja connecté");
+                return ;
+            }
+            client = this.connectWebSocket();
+
+            console.log(client.readyState);
+
+            client.onopen = function(){
+                console.log("on open");
+                console.log(client.readyState);
+            };
+            return;
+        }
+            
         //permet d'envoyer le mode (enum dans global) choisit à la page pseudo
         this.router.navigateByUrl('/pseudo', { state: { mode: modeChoisit } });
     }
