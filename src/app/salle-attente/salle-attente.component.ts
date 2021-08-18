@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { debug } from 'console';
+import { environment } from 'src/environments/environment';
 import { Allmode, Globals } from '../global';
 var W3CWebSocket = require('websocket').w3cwebsocket;
 
@@ -11,6 +12,7 @@ var W3CWebSocket = require('websocket').w3cwebsocket;
 })
 export class SalleAttenteComponent implements OnInit {
     // client : WebSocket;
+    AdresseWebSocket :string= environment.adressWebSocket;
     isConnectToWebSocketServer : boolean = false;
     userPseudo: string = '';
     playersList: any = [];
@@ -132,7 +134,7 @@ export class SalleAttenteComponent implements OnInit {
             return
         }
         this.isConnectToWebSocketServer = true;
-        return this.globals.client = new W3CWebSocket('ws://localhost:3000/'+ pseudoPlayer);
+        return this.globals.client = new W3CWebSocket(this.AdresseWebSocket + pseudoPlayer);
     }
 
     setInfoRoomAndPlayer(notif :any)
