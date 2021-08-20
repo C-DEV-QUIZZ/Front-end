@@ -48,3 +48,6 @@ Une fois cette commande terminé il reste à lancer le serveur avec cette comman
 Cdlt
 
 ---
+
+## Le 20/08/21 
+Deploiement OK
