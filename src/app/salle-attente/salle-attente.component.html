@@ -1,0 +1,26 @@
+<button id="minuteur" hidden class="button cycle outline yellow">{{ minutor }}</button>
+
+<div class="row">
+    <h2 id="MessageTitre">ATTENTE DES JOUEURS<span class="ani-pass">...</span></h2>
+    <img id="imageWait" src="https://espace-stockage.fra1.digitaloceanspaces.com/school/MESI/Gif2-Question.gif" style="width: 150px;">
+</div>
+
+
+<div class="conteneur col-lg-8">
+    <div class="cards" *ngFor="let player of playersList" [ngClass]="{'bckgd': player.isPlayer == true}">
+        <div class="rowIcoPlayer">
+            <span class="mif-user fg-black icoPlayer"></span>
+        </div>
+        <div class="rowPseudoPlayer">
+            <span class="pseudoPlayer fg-white">{{player.nom}}</span>
+        </div>
+    </div>
+</div>
+
+
+<div class="messageInfo" style="display: flex; flex-direction: column;">
+    <small >Salle :  {{ roomGuid }}</small>
+    <small >GUID :  {{ userGuid }}</small>
+</div>
+
+

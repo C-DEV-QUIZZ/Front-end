@@ -1,0 +1,84 @@
+:host {
+    display: flex;
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+h2{
+    color:  var(--text-color);
+    font-family:var(--style-font);
+    font-size: var(--font-size);
+    padding: 30px;
+    text-decoration: underline;
+}
+.conteneur{
+    min-height: 70%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 80%;
+}
+.cards{
+    width: 100px;
+    height: 150px;
+    margin: 10px;
+    border : 1px solid rgba(255, 255, 255, 0.582);
+    box-shadow: 5px 5px 20px white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+}
+.rowIcoPlayer{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rowPseudoPlayer{
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rowStatutPlayer{
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icoPlayer{
+    font-size: 4vmax;
+}
+.pseudoPlayer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    height: 90%;
+    width: 90%;
+    font-family:var(--style-font);
+    font-size: 1.5vmax;
+    text-transform: capitalize;
+}
+.statutPlayer{
+    font-size: 1.5vmax;
+}
+
+.bckgd{
+    border: 2px solid rgba(255, 165, 0);
+}
+
+#minuteur{
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    height: 100px;
+    width:100px;
+    font-size: 2.5vmax;
+}

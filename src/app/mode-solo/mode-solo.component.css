@@ -1,0 +1,102 @@
+:host {
+  display: flex;
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.container {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 600px;
+}
+.titre {
+  font-size: 3.5vmax;
+  color: var(--text-color);
+  font-weight: bold;
+  text-align: center;
+  height: 30%;
+}
+#blocReponse {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.myBtn {
+    margin: 5px;
+    width: 40%;
+    font-size: 2.0vmax;
+    height: 25%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.507);
+    text-decoration: none;
+    border: 1px solid rgb(57, 65, 58);
+    color: black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+.myBtn:hover {
+  box-shadow: 1px 1px 25px 10px rgba(49, 54, 52, 0.4);
+}
+
+.myBtn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(49, 63, 53, 0.4),
+    transparent
+  );
+  transition: all 650ms;
+}
+
+.myBtn:hover:before {
+  left: 100%;
+}
+
+#messageInfo {
+  color: rgb(199, 169, 169, 0.5);
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  margin-right: 20px;
+}
+small {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  margin-right: 20px;
+  color: rgba(255, 255, 255, 0.712);
+}
+
+
+@media screen and (max-width: 640px) {
+    #blocReponse  {
+        flex-direction:column;
+    }
+    .myBtn{
+        width: 90%;
+        height: 50px;
+    }
+  }
