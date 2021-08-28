@@ -54,6 +54,7 @@ StartListenWebSocket() {
 
         if(notif.tag == "receivedScore"){
             this.resultScoreList = JSON.parse(notif.objet);
+            this.resultScoreList = this.resultScoreList.sort(x=>x.score).reverse();
             this.haveAllScore = true;
         }
     }
