@@ -13,9 +13,8 @@ export class ScoresComponent implements OnInit {
   userPseudo;
   haveAllScore =false;
   resultScoreList : ResultScore[] = [];
-  constructor(private router: Router, public globals: Globals) { }
+  constructor(private router: Router, public globals: Globals) {
 
-  ngOnInit(): void {
     this.recupUserName();
     if(history.state.mode){
         // check si bien en mode multi
@@ -31,6 +30,11 @@ export class ScoresComponent implements OnInit {
     }
     else
         this.router.navigate(['/'])
+
+
+   }
+
+  ngOnInit(): void {
 }
 
 recupUserName() {
@@ -54,7 +58,9 @@ StartListenWebSocket() {
 
         if(notif.tag == "receivedScore"){
             this.resultScoreList = JSON.parse(notif.objet);
-            this.resultScoreList = this.resultScoreList.sort(x=>x.score).reverse();
+            this.resultScoreList = this.resultScoreList.sort((r1,r2 )=> r1.score+r2.score);
+            console.table(this.resultScoreList);
+
             this.haveAllScore = true;
         }
     }
