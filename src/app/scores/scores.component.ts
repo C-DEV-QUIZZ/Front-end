@@ -52,8 +52,6 @@ recupUserName() {
 
 StartListenWebSocket() {
     this.globals.client.onmessage = (NotifServerString) =>{
-        // console.log(NotifServerString);
-        // console.log(NotifServerString.data);
         let notif = JSON.parse(NotifServerString.data);
 
         if(notif.tag == "receivedScore"){
