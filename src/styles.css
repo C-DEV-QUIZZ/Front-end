@@ -22,11 +22,6 @@ html,body{
 .noScroll{
   overflow: hidden;
 }
-#spinner{
-    position: absolute;
-    left: 10px ;
-    top : 10px;
-}
 
 .myBtn {
     font-weight: bold;

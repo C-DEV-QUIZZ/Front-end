@@ -54,3 +54,13 @@ td{
     min-height: 250px;
     overflow: auto !important;
 }
+
+
+@media (max-width: 350px) {
+    .container{
+        width: 100%;
+    }
+    .conteneurCardQuestion{
+        width: 100%;
+    }
+}

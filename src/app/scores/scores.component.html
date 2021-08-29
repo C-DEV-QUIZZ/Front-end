@@ -22,7 +22,7 @@
             </thead>
             <tbody>
                 
-                <tr [ngClass]="{'animate__animated animate__pulse animate__infinite': index ==0}"  *ngFor="let resultScore of resultScoreList; let index = index; let isFirst = first;">
+                <tr [ngClass]="{'animate__animated animate__pulse animate__infinite': index ==0}"  *ngFor="let resultScore of resultScoreList; let index = index;">
                     <td class="text-left"> {{ index + 1 }}e</td>
                     <td class="text-left">{{ resultScore.pseudo}}</td>
                     <td class="text-right">{{ resultScore.score}}/{{resultScore.scoreMax}}</td>
