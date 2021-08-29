@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { debug } from 'console';
+import { element } from 'protractor';
 import { environment } from 'src/environments/environment';
 import { Allmode, Globals } from '../global';
 var W3CWebSocket = require('websocket').w3cwebsocket;
@@ -20,7 +21,7 @@ export class SalleAttenteComponent implements OnInit {
     roomGuid : string;
     mode : any = {};
     nomberAppelbackEnd=-1;
-    minutor : number = 0;
+    minutor : number = -1;
     TimerInterval ;
     constructor(private router: Router, public globals: Globals) {}
 
@@ -104,12 +105,8 @@ export class SalleAttenteComponent implements OnInit {
     {   
         this.minutor = notif.objet;
         document.getElementById("MessageTitre").innerHTML=notif.message;
-        let button = document.getElementById("minuteur");
-        button.innerHTML = this.minutor.toString();
-        button.removeAttribute("hidden"); 
         this.TimerInterval = setInterval(()=>{
-            this.minutor--;
-            document.getElementById("minuteur").innerHTML = this.minutor.toString();            
+            this.minutor--;           
             if(this.minutor <=0)
             {
                 clearInterval(this.TimerInterval);

@@ -57,8 +57,8 @@ StartListenWebSocket() {
         let notif = JSON.parse(NotifServerString.data);
 
         if(notif.tag == "receivedScore"){
-            this.resultScoreList = JSON.parse(notif.objet);
-            this.resultScoreList = this.resultScoreList.sort((r1,r2 )=> r1.score+r2.score);
+            let tmp = JSON.parse(notif.objet);
+            this.resultScoreList = tmp.sort((a, b) => (a.score > b.score ? -1 : 1));
             console.table(this.resultScoreList);
 
             this.haveAllScore = true;

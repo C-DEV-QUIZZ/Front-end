@@ -40,3 +40,32 @@
     right: 10px ;
     bottom: 10px;
 }
+
+
+@media (max-width: 400px) { 
+    :host {
+        display: flex;
+        min-height: 100%;
+        width: 100%;
+        margin: 0;
+        flex-direction: inherit;
+    }
+
+    .container{
+        width: 100%;
+    }
+    .myBtn{
+        width: 100%;
+    }
+    .dialog-title{
+        font-size: 2.5vmax;
+        text-align: center;
+    }
+    label{
+        font-size: 2.5vmax;
+    }
+    b{
+        font-size: 2vmax;
+    }
+
+}

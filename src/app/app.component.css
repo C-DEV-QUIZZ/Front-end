@@ -1,0 +1,9 @@
+li{
+    font-size: 2.5vmax;
+}
+
+#spinner{
+    position: absolute;
+    left: 10px ;
+    top : 10px;
+}
