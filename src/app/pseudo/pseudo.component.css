@@ -17,6 +17,13 @@
     align-items: center;
     min-height: 400px;
 }
+.containerPersonnage{
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
 .titre{
     font-size: 4.5vmax;
     color: var(--text-color);

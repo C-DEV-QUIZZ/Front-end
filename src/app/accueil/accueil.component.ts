@@ -3,18 +3,15 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AjaxService } from '../ajax.service';
 import { Allmode } from '../global';
-var W3CWebSocket = require('websocket').w3cwebsocket;
-let client;
+
 @Component({
     selector: 'app-accueil',
     templateUrl: './accueil.component.html',
     styleUrls: ['./accueil.component.css'],
 })
 export class AccueilComponent implements OnInit {
-    client : WebSocket;
-    isConnectToWebSocketServer : boolean = false;
+
     constructor(private router: Router, private ajaxService:AjaxService) {
-        
     }
     version :string= environment.appVersion;
     typeEnvironnement :string= environment.typeEnvironnement;
@@ -24,7 +21,6 @@ export class AccueilComponent implements OnInit {
     colorBackground;
 
     Allmode = Allmode;
-    socket;
 
     ngOnInit(): void {
         this.colorBackground = getComputedStyle(
