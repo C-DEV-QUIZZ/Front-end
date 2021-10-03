@@ -32,6 +32,7 @@ Ce dernier permet de créer et gérer un projet ainsi que d'ajouter simplement d
     npm install
 ```
 *qui permettra l'installation toutes les dépendances nécessaires au projet:*
+test
 
 Une fois cette commande terminé il reste à lancer le serveur avec cette commande :
 
